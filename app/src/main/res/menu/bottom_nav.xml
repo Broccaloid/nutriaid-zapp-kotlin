@@ -11,9 +11,9 @@
         android:title="Shopping" />
 
     <item
-        android:id="@+id/nav_statistic"
+        android:id="@+id/nav_chart"
         android:icon="@drawable/ic_baseline_graphic_eq_24"
-        android:title="Statistic" />
+        android:title="Chart" />
 
     <item
         android:id="@+id/nav_recipe"

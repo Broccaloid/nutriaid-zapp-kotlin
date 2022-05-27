@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StatisticFragment">
+    tools:context=".ChartFragment">
 
     <TextView
-        android:id="@+id/statisticFragment"
+        android:id="@+id/chartFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello, this is the StatisticFragment"
+        android:text="Hello, this is the ChartFragment"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

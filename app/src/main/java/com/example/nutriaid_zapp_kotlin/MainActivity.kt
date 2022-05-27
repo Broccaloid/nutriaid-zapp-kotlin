@@ -1,18 +1,18 @@
 package com.example.nutriaid_zapp_kotlin
 
-import android.content.ClipData
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private val homeFragment = HomeFragment()
     private val shoppingFragment = ShoppingFragment()
-    private val statisticFragment = StatisticFragment()
+    private val chartFragment = ChartFragment()
     private val recipeFragment = RecipeFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,20 +20,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         replaceFragment(homeFragment)
 
-        val bottom_nav : BottomNavigationView = findViewById(R.id.bottom_nav)
-        val profile_button : ImageButton = findViewById(R.id.profile_button)
+        val bottom_nav: BottomNavigationView = findViewById(R.id.bottom_nav)
+        val profile_button: ImageButton = findViewById(R.id.profile_button)
 
         profile_button.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                //TODO: gotto Profile Fragment/Activity
+                //TODO: goto Profile Fragment/Activity
             }
         })
 
         bottom_nav.setOnNavigationItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.nav_home -> replaceFragment(homeFragment)
                 R.id.nav_shopping -> replaceFragment(shoppingFragment)
-                R.id.nav_statistic -> replaceFragment(statisticFragment)
+                R.id.nav_chart -> replaceFragment(chartFragment)
                 R.id.nav_recipe -> replaceFragment(recipeFragment)
 
             }
@@ -41,11 +41,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun replaceFragment(fragment: Fragment){
-        if(fragment != null){
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.flFragment, fragment)
-            transaction.commit()
+    private fun replaceFragment(fragment: Fragment) {
+        if (fragment != null) {
+            val fragManager: FragmentManager = supportFragmentManager
+            val fragTransaction: FragmentTransaction = fragManager.beginTransaction()
+            fragTransaction.replace(R.id.main_container, fragment)
+            //fragTransaction.addToBackStack(null)
+            fragTransaction.commit()
         }
     }
 }
