@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
         recipe2.title = "Recipe 2"
         val recipe3 = Recipe()
         recipe3.title = "Recipe 3"
-        recipe3.image = R.drawable.ic_baseline_star_24
+        recipe3.image = R.drawable.ic_baseline_android_24
 
         var recipeList: List<Recipe> =  listOf(recipe1, recipe2, recipe3)
 

@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     private val shoppingFragment = ShoppingFragment()
     private val chartFragment = ChartFragment()
     private val recipeFragment = RecipeFragment()
+    private val profileFragment = ProfileFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,21 +22,14 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(homeFragment)
 
         val bottom_nav: BottomNavigationView = findViewById(R.id.bottom_nav)
-        val profile_button: ImageButton = findViewById(R.id.profile_button)
-
-        profile_button.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                //TODO: goto Profile Fragment/Activity
-            }
-        })
 
         bottom_nav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
+                R.id.nav_profile -> replaceFragment(profileFragment)
+                R.id.nav_chart -> replaceFragment(chartFragment)
                 R.id.nav_home -> replaceFragment(homeFragment)
                 R.id.nav_shopping -> replaceFragment(shoppingFragment)
-                R.id.nav_chart -> replaceFragment(chartFragment)
                 R.id.nav_recipe -> replaceFragment(recipeFragment)
-
             }
             true
         }

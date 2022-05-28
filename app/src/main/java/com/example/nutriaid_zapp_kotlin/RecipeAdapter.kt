@@ -25,7 +25,7 @@ class RecipeAdapter(private val data: List<Recipe>) : RecyclerView.Adapter<Recip
         val item: Recipe = data[position]
         holder.recipe_imageView.setImageResource(item.image)
         holder.recipe_title.text = item.title
-        holder.recipe_time.text = item.readyInMinutes
+        holder.recipe_time.text = item.readyInMinutes + " min"
         holder.recipe_star.text = item.aggregateLikes
     }
 
