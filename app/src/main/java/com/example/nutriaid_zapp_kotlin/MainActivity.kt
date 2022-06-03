@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         bottom_nav.setOnNavigationItemSelectedListener {
             when(it.itemId) {
-                R.id.nav_home -> replaceFragment(loginFragment)
+                R.id.nav_home -> replaceFragment(homeFragment)
                 R.id.nav_shopping -> replaceFragment(shoppingFragment)
                 R.id.nav_statistic -> replaceFragment(statisticFragment)
                 R.id.nav_recipe -> replaceFragment(recipeFragment)

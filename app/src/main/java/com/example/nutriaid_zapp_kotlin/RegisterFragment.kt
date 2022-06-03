@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.nutriaid_zapp_kotlin.databinding.FragmentLoginBinding
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentRegisterBinding
 
 class RegisterFragment: Fragment() {
