@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     private val shoppingFragment = ShoppingFragment()
     private val statisticFragment = StatisticFragment()
     private val recipeFragment = RecipeFragment()
+    private val loginFragment = LoginFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         bottom_nav.setOnNavigationItemSelectedListener {
             when(it.itemId) {
-                R.id.nav_home -> replaceFragment(homeFragment)
+                R.id.nav_home -> replaceFragment(loginFragment)
                 R.id.nav_shopping -> replaceFragment(shoppingFragment)
                 R.id.nav_statistic -> replaceFragment(statisticFragment)
                 R.id.nav_recipe -> replaceFragment(recipeFragment)
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun replaceFragment(fragment: Fragment){
+    public fun replaceFragment(fragment: Fragment){
         if(fragment != null){
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.flFragment, fragment)
