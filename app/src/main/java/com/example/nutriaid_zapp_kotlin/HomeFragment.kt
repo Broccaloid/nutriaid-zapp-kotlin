@@ -4,20 +4,17 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.PopupMenu
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentHomeBinding
 
 /*
-    todo: getRecipeList(): get real recipe recommendations
+    todo: getRecipeRecommendations(): get real recipe recommendations
  */
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
     private var day: Int = 0;
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,11 +42,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun showRecipeRecommendations() {
-        val recipeList = getRecipeList(day)
+        val recipeRecommendations = getRecipeRecommendations(day)
 
         val recyclerView = binding.homeRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = RecipeAdapter(recipeList)
+        recyclerView.adapter = RecipeAdapter(recipeRecommendations)
     }
 
     private fun showMenu(v:View?) {
@@ -93,21 +90,24 @@ class HomeFragment : Fragment() {
         popupMenu.show()
     }
 
-    private fun getRecipeList(day: Int): List<Recipe> {
+    private fun getRecipeRecommendations(day: Int): List<Recipe> {
 
         /*
-            the recent code in getRecipeList() is just for debugging
+            the recent code in getRecipeRecommendations() is just for debugging
          */
         val recipe1 = Recipe()
+        recipe1.id = 1
         recipe1.title = "day: " + day + " Recipe 1"
         val recipe2 = Recipe()
+        recipe2.id = 2
         recipe2.title = "day: " + day + " Recipe 2"
         val recipe3 = Recipe()
+        recipe3.id = 3
         recipe3.title = "day: " + day + " Recipe 3"
         recipe3.image = R.drawable.ic_baseline_android_24
 
-        var recipeList: List<Recipe> =  listOf(recipe1, recipe2, recipe3)
+        var recipeRecommendations: List<Recipe> =  listOf(recipe1, recipe2, recipe3)
 
-        return recipeList
+        return recipeRecommendations
     }
 }

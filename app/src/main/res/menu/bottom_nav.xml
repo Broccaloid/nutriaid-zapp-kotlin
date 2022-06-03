@@ -21,8 +21,8 @@
         android:title="Shopping" />
 
     <item
-        android:id="@+id/nav_recipe"
+        android:id="@+id/nav_recipeList"
         android:icon="@drawable/ic_baseline_restaurant_menu_24"
-        android:title="Recipe" />
+        android:title="RecipeList" />
 
 </menu>

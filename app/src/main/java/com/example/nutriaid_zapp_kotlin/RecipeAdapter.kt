@@ -1,5 +1,7 @@
 package com.example.nutriaid_zapp_kotlin
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,11 +31,25 @@ class RecipeAdapter(private val data: List<Recipe>) : RecyclerView.Adapter<Recip
         holder.recipe_star.text = item.aggregateLikes
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        private val context: Context = itemView.context
+
         var recipe_list_container: CardView = itemView.findViewById(R.id.recipe_preview_list_container)
         var recipe_imageView: ImageView = itemView.findViewById(R.id.recipe_preview_imageView)
         var recipe_title: TextView = itemView.findViewById(R.id.recipe_preview_title)
         var recipe_time: TextView = itemView.findViewById(R.id.recipe_preview_time)
         var recipe_star: TextView = itemView.findViewById(R.id.recipe_preview_star)
+
+        init {
+            recipe_list_container.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val intent:Intent = Intent(context, RecipeActivity::class.java)
+            var recipe_id:Int = data[adapterPosition].id
+
+            intent.putExtra("recipe_id", recipe_id)
+            context.startActivity(intent)
+        }
     }
 }

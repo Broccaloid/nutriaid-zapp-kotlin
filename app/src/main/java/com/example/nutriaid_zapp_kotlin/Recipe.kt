@@ -8,6 +8,7 @@ import android.provider.Settings.Global.getString
  */
 
 class Recipe {
+    var id: Int = 1
     var title: String = "Recipe 1"
     var image: Int = R.drawable.ic_baseline_restaurant_menu_24
     var aggregateLikes: String = "3,5/5 (100)"

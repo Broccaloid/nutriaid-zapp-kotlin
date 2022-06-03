@@ -2,8 +2,6 @@ package com.example.nutriaid_zapp_kotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -13,7 +11,7 @@ class MainActivity : AppCompatActivity() {
     private val homeFragment = HomeFragment()
     private val shoppingFragment = ShoppingFragment()
     private val chartFragment = ChartFragment()
-    private val recipeFragment = RecipeFragment()
+    private val recipeListFragment = RecipeListFragment()
     private val profileFragment = ProfileFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_chart -> replaceFragment(chartFragment)
                 R.id.nav_home -> replaceFragment(homeFragment)
                 R.id.nav_shopping -> replaceFragment(shoppingFragment)
-                R.id.nav_recipe -> replaceFragment(recipeFragment)
+                R.id.nav_recipeList -> replaceFragment(recipeListFragment)
             }
             true
         }
