@@ -1,6 +1,6 @@
 package com.example.nutriaid_zapp_kotlin.models.short_recipe
 
-data class Result(
+data class ShortRecipe(
     val calories: Int,
     val carbs: String,
     val fat: String,
