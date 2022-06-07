@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     private val shoppingFragment = ShoppingFragment()
     private val statisticFragment = StatisticFragment()
     private val recipeFragment = RecipeFragment()
+    private val loginFragment = LoginFragment()
 
     private lateinit var binding: ActivityMainBinding
 
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun replaceFragment(fragment: Fragment){
+    public fun replaceFragment(fragment: Fragment){
         if(fragment != null){
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.flFragment, fragment)
