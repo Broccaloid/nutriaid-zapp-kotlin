@@ -2,9 +2,12 @@ package com.example.nutriaid_zapp_kotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.example.nutriaid_zapp_kotlin.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -13,15 +16,20 @@ class MainActivity : AppCompatActivity() {
     private val chartFragment = ChartFragment()
     private val recipeListFragment = RecipeListFragment()
     private val profileFragment = ProfileFragment()
+    private val loginFragment = LoginFragment()
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         replaceFragment(homeFragment)
 
-        val bottom_nav: BottomNavigationView = findViewById(R.id.bottom_nav)
+        val bottomNav: BottomNavigationView = findViewById(R.id.bottom_nav)
 
-        bottom_nav.setOnNavigationItemSelectedListener {
+        bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_profile -> replaceFragment(profileFragment)
                 R.id.nav_chart -> replaceFragment(chartFragment)
@@ -33,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    public fun replaceFragment(fragment: Fragment) {
         if (fragment != null) {
             val fragManager: FragmentManager = supportFragmentManager
             val fragTransaction: FragmentTransaction = fragManager.beginTransaction()

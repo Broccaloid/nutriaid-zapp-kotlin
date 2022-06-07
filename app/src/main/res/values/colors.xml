@@ -8,4 +8,6 @@
     <color name="light_yellow">#ffd95a</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue">#1C2077</color>
+    <color name="light_blue">#266E95</color>
 </resources>
