@@ -9,6 +9,6 @@ import android.view.ViewGroup
 /**
  * A simple [Fragment] subclass.
  */
-class StatisticFragment : Fragment(R.layout.fragment_statistic) {
+class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
 }

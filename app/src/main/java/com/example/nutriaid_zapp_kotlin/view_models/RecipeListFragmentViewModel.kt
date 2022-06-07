@@ -10,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RecipeFragmentViewModel(private val apiRepository: ApiRepository) : ViewModel(){
+class RecipeListFragmentViewModel(private val apiRepository: ApiRepository) : ViewModel(){
     val recipeList = MutableLiveData<List<ShortRecipe>>()
     val errorMessage = MutableLiveData<String>()
 

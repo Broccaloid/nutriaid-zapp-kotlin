@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_baseline_account_circle_24"
+        android:title="Profile" />
+
+    <item
+        android:id="@+id/nav_chart"
+        android:icon="@drawable/ic_baseline_graphic_eq_24"
+        android:title="Chart" />
+
+    <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="Home" />
@@ -11,13 +21,8 @@
         android:title="Shopping" />
 
     <item
-        android:id="@+id/nav_statistic"
-        android:icon="@drawable/ic_baseline_graphic_eq_24"
-        android:title="Statistic" />
-
-    <item
-        android:id="@+id/nav_recipe"
+        android:id="@+id/nav_recipeList"
         android:icon="@drawable/ic_baseline_restaurant_menu_24"
-        android:title="Recipe" />
+        android:title="RecipeList" />
 
 </menu>

@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">nutriaid-zapp-kotlin</string>
     <string name="register_link">Do not have an Account yet? <u>Register here.</u></string>
+    <string name="app_name">NutriAid</string>
 </resources>

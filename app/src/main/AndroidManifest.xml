@@ -17,10 +17,8 @@
         android:theme="@style/Theme.Nutriaidzappkotlin"
         tools:targetApi="31">
         <activity
-            android:name=".TestActivity"
-            android:exported="true" >
-
-        </activity>
+            android:name=".RecipeActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
