@@ -1,4 +1,4 @@
-package com.example.nutriaid_zapp_kotlin
+package com.example.nutriaid_zapp_kotlin.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nutriaid_zapp_kotlin.R
+import com.example.nutriaid_zapp_kotlin.Recipe
+import com.example.nutriaid_zapp_kotlin.RecipeActivity
 
 class RecipeAdapter(private val data: List<Recipe>) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
 
@@ -45,7 +48,7 @@ class RecipeAdapter(private val data: List<Recipe>) : RecyclerView.Adapter<Recip
         }
 
         override fun onClick(v: View?) {
-            val intent:Intent = Intent(context, RecipeActivity::class.java)
+            val intent: Intent = Intent(context, RecipeActivity::class.java)
             var recipe_id:Int = data[adapterPosition].id
 
             intent.putExtra("recipe_id", recipe_id)
