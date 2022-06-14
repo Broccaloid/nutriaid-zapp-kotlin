@@ -3,9 +3,8 @@ package com.example.nutriaid_zapp_kotlin.models.algorithm
 import com.example.nutriaid_zapp_kotlin.models.requests.SearchParameters
 import com.example.nutriaid_zapp_kotlin.api_services.SpoonacularService
 import com.example.nutriaid_zapp_kotlin.models.short_recipe.RecipeShortData
-import com.example.nutriaid_zapp_kotlin.repositories.ApiRepository
 
-fun algorithm(userSpecs: userSpecs){
+fun algorithm(userSpecs: UserSpecs){
     var number: String = "3"
     var cuisine: String //for recipe-exploring
     var diet: String //for recipe-exploring
@@ -33,5 +32,4 @@ fun algorithm(userSpecs: userSpecs){
 
     //TODO("write return to firebase")
     //TODO("get return to view-models")
-    //TODO("create alarm, whose intent launches the algorithm")
 }
