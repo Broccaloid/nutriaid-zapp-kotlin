@@ -20,7 +20,8 @@ class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
     var maxFat: String = "0"
     var maxCalories: String = "0"
 
-    override fun getRecipeIDList():List<Int>{
+    override fun getRecipeIDList(num : Int):List<Int>{
+        number = num.toString()
         for (i in userSpecs.dietExtras){
             if(i == "high-protein")
                 minProtein = "30"
@@ -42,7 +43,6 @@ class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
         response.enqueue(object : Callback<RecipeShortData> {
             override fun onResponse(call: Call<RecipeShortData>, response: Response<RecipeShortData>) {
                 val recipes = response.body()?.results //list<Typ shortRecipe>
-                //TODO("id liste zurückgeben")
                 if (recipes != null) {
                     for(i in recipes){
                         IDList[IDListIndex] = i.id
