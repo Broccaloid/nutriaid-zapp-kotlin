@@ -22,7 +22,7 @@ class RecipeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe)
 
-        val recipeId = intent.extras?.get("recipe_id") as Int
+        val recipeId = 1//intent.extras?.get("recipe_id") as Int
 
         /*
             GET DATA
@@ -53,7 +53,7 @@ class RecipeActivity : AppCompatActivity() {
         val ingredientList: List<ExtendedIngredient> = recipe.extendedIngredients
         var ingredients = ""
         for(i in ingredientList) {
-            ingredients += "${i.amount} ${i.unit} ${i.name} \n"
+            ingredients += "${i.amount} ${i.unit}:  ${i.name} \n"
         }
 
         Glide.with(this).load(recipe.image).into(recipeImg)
