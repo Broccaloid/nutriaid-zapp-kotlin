@@ -1,163 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:id="@+id/recipe_image"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:src="@drawable/ic_baseline_android_24"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/recipe_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Recipe Title"
-        android:textColor="@color/black"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipe_image" />
-
-    <TextView
-        android:id="@+id/recipe_credits"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="credits"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipe_title" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/recipe_credits">
+    android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
             android:orientation="vertical">
-
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_access_time_24" />
+                android:id="@+id/recipe_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_baseline_android_24" />
 
             <TextView
-                android:id="@+id/recipe_time"
+                android:id="@+id/recipe_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="time in min"
-                android:textColor="@color/black" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_stacked_bar_chart_24" />
+                android:padding="8dp"
+                android:text="Recipe Title"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
 
             <TextView
-                android:id="@+id/recipe_difficulty"
+                android:id="@+id/recipe_credits"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="difficulty"
-                android:textColor="@color/black" />
-        </LinearLayout>
+                android:text="credits"
+                android:textColor="@color/black"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_star_24" />
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+
+                <TextView
+                    android:id="@+id/recipe_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="time in min"
+                    android:textColor="@color/black"
+                    app:drawableStartCompat="@drawable/ic_baseline_access_time_24"/>
+
+                <TextView
+                    android:id="@+id/recipe_likes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="aggregateLikes"
+                    app:drawableStartCompat="@drawable/ic_baseline_star_24"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/recipe_likes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="aggregateLikes"
+                android:layout_margin="8dp"
+                android:paddingTop="16dp"
+                android:text="Ingredients"
+                android:textSize="20sp"
                 android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/recipe_servings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:paddingTop="16dp"
+                android:text="Number of servings"
+                android:textSize="20sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/recipe_ingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:paddingTop="16dp"
+                android:text="Instructions"
+                android:textSize="20sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/recipe_instructions"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Instructions of recipe"
+                android:textColor="@color/black"
+                android:layout_marginHorizontal="16dp" />
         </LinearLayout>
 
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="48dp"
-        android:layout_marginRight="8dp"
-        android:paddingTop="16dp"
-        android:text="Ingredients"
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <TextView
-        android:id="@+id/recipe_servings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="48dp"
-        android:layout_marginLeft="8dp"
-        android:paddingTop="16dp"
-        android:text="Number of servings"
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recipe_ingredientsList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipe_servings">
-        android:layout_marginHorizontal="40dp"
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:paddingTop="16dp"
-        android:text="Instructions"
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipe_ingredientsList" />
-
-    <TextView
-        android:id="@+id/recipe_instructions"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="Instructions of recipe"
-        android:textColor="@color/black"
-        android:layout_marginHorizontal="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

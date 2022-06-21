@@ -49,9 +49,9 @@ class RecipeAdapter(private val data: List<Recipe>) : RecyclerView.Adapter<Recip
 
         override fun onClick(v: View?) {
             val intent: Intent = Intent(context, RecipeActivity::class.java)
-            var recipe_id:Int = data[adapterPosition].id
+            var recipeId:Int = data[adapterPosition].id
 
-            intent.putExtra("recipe_id", recipe_id)
+            intent.putExtra("recipeId", recipeId)
             context.startActivity(intent)
         }
     }
