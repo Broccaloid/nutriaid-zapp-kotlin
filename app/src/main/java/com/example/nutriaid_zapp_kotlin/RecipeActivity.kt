@@ -2,6 +2,8 @@ package com.example.nutriaid_zapp_kotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
@@ -17,12 +19,20 @@ import com.example.nutriaid_zapp_kotlin.view_models.factories.RecipeActivityView
 class RecipeActivity : AppCompatActivity() {
     private lateinit var viewModel: RecipeActivityViewModel
     private val spoonacularService = SpoonacularService.getInstance()
+    private lateinit var ingredientList: List<ExtendedIngredient>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe)
 
-        val recipeId = 1//intent.extras?.get("recipe_id") as Int
+        val recipeId: Int = intent.extras?.get("recipeId") as Int
+        val addIngredientsButton: Button = findViewById(R.id.add_ingredients_button)
+
+        addIngredientsButton.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(v: View?) {
+                //Todo: add ingredientList to shopping list
+            }
+        })
 
         /*
             GET DATA
@@ -40,6 +50,7 @@ class RecipeActivity : AppCompatActivity() {
 
         viewModel.getFullRecipeById(FullRecipeParameters(recipeId))
 
+
     }
     private fun showRecipeData(recipe: RecipeFullData) {
         val recipeImg: ImageView = findViewById(R.id.recipe_image)
@@ -50,7 +61,7 @@ class RecipeActivity : AppCompatActivity() {
         val recipeServings: TextView = findViewById(R.id.recipe_servings)
         val recipeInstructions: TextView = findViewById(R.id.recipe_instructions)
         val recipeIngredients: TextView = findViewById(R.id.recipe_ingredients)
-        val ingredientList: List<ExtendedIngredient> = recipe.extendedIngredients
+        ingredientList = recipe.extendedIngredients
         var ingredients = ""
         for(i in ingredientList) {
             ingredients += "${i.amount} ${i.unit}:  ${i.name} \n"
