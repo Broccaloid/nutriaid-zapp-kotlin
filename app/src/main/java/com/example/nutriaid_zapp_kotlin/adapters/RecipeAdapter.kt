@@ -28,23 +28,23 @@ class RecipeAdapter(private val data: List<Recipe>) : RecyclerView.Adapter<Recip
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: Recipe = data[position]
-        holder.recipe_imageView.setImageResource(item.image)
-        holder.recipe_title.text = item.title
-        holder.recipe_time.text = item.readyInMinutes + " min"
-        holder.recipe_star.text = item.aggregateLikes
+        holder.recipeImageview.setImageResource(item.image)
+        holder.recipeTitle.text = item.title
+        holder.recipeTime.text = item.readyInMinutes + " min"
+        holder.recipeStar.text = item.aggregateLikes
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private val context: Context = itemView.context
 
-        var recipe_list_container: CardView = itemView.findViewById(R.id.recipe_preview_list_container)
-        var recipe_imageView: ImageView = itemView.findViewById(R.id.recipe_preview_imageView)
-        var recipe_title: TextView = itemView.findViewById(R.id.recipe_preview_title)
-        var recipe_time: TextView = itemView.findViewById(R.id.recipe_preview_time)
-        var recipe_star: TextView = itemView.findViewById(R.id.recipe_preview_star)
+        var recipeListContainer: CardView = itemView.findViewById(R.id.recipe_preview_list_container)
+        var recipeImageview: ImageView = itemView.findViewById(R.id.recipe_preview_imageView)
+        var recipeTitle: TextView = itemView.findViewById(R.id.recipe_preview_title)
+        var recipeTime: TextView = itemView.findViewById(R.id.recipe_preview_time)
+        var recipeStar: TextView = itemView.findViewById(R.id.recipe_preview_star)
 
         init {
-            recipe_list_container.setOnClickListener(this)
+            recipeListContainer.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {

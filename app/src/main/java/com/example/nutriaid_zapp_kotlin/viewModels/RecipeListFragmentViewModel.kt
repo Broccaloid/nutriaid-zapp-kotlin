@@ -1,10 +1,10 @@
-package com.example.nutriaid_zapp_kotlin.view_models
+package com.example.nutriaid_zapp_kotlin.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nutriaid_zapp_kotlin.models.requests.SearchParameters
-import com.example.nutriaid_zapp_kotlin.models.short_recipe.RecipeShortData
-import com.example.nutriaid_zapp_kotlin.models.short_recipe.ShortRecipe
+import com.example.nutriaid_zapp_kotlin.models.shortRecipe.RecipeShortData
+import com.example.nutriaid_zapp_kotlin.models.shortRecipe.ShortRecipe
 import com.example.nutriaid_zapp_kotlin.repositories.ApiRepository
 import retrofit2.Call
 import retrofit2.Callback
