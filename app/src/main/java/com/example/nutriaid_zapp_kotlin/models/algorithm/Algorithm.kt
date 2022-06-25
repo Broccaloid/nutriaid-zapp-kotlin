@@ -68,7 +68,7 @@ class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
     var minB12: String = "0"
     var totalB12: Int = 0
 
-    override fun getRecipeIDList(num : Int, firstRun : Boolean):List<Int>{ //firstRun: For when an new User signed up -> no prior recipe data
+    override fun getRecipes(num : Int, firstRun : Boolean){ //firstRun: For when an new User signed up -> no prior recipe data
         number = num.toString()
         for (i in userSpecs.dietExtras){
             if(i == "high-protein")
@@ -83,11 +83,11 @@ class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
                 maxFat = "20"
         }
 
-        //TODO: Get weeklyRecipes from Firebase
-        lateinit var weeklyRecipes : ...
-
-
         if(!firstRun){ //if it is the first run, skip this
+
+            //TODO: Get weeklyRecipes from Firebase
+            lateinit var weeklyRecipes : ...
+
             for(i in weeklyRecipes){
                 totalMagnesium += i.magnesium.toInt()
                 totalCalcium += i.Calcium.toInt()
@@ -148,22 +148,18 @@ class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
                                       minPhosphorus = minPhosporus, minVitaminC = minC, minVitaminE = minE, minVitaminK = minK, minVitaminA = minA, minVitaminB1 = minB1, minVitaminB2 = minB2,
                                       minVitaminB3 = minB3, minVitaminB5 = minB5, minVitaminB6 = minB6, minVitaminB12 = minB12)
         var response  = api.getListShortRecipes(search)
-        lateinit var IDList:MutableList<Int>
-        var IDListIndex : Int = 0
 
         response.enqueue(object : Callback<RecipeShortData> {
             override fun onResponse(call: Call<RecipeShortData>, response: Response<RecipeShortData>) {
                 val recipes = response.body()?.results //list<Typ shortRecipe>
                 if (recipes != null) {
                     for(i in recipes){
-                        IDList[IDListIndex] = i.id
-                        IDListIndex++
+                        //TODO: Write i to firebase
                     }
                 }
             }
             override fun onFailure(call: Call<RecipeShortData>, t: Throwable) {}
         })
-        return IDList
     }
 
 
