@@ -1,8 +1,8 @@
-package com.example.nutriaid_zapp_kotlin.view_models
+package com.example.nutriaid_zapp_kotlin.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.nutriaid_zapp_kotlin.models.full_recipe.RecipeFullData
+import com.example.nutriaid_zapp_kotlin.models.fullRecipe.RecipeFullData
 import com.example.nutriaid_zapp_kotlin.models.requests.FullRecipeParameters
 import com.example.nutriaid_zapp_kotlin.repositories.ApiRepository
 import retrofit2.Callback

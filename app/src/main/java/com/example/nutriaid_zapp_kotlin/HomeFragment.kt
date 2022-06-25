@@ -1,7 +1,10 @@
 package com.example.nutriaid_zapp_kotlin
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,9 +38,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val img_but = binding.homeImageButton
+        val imgBut = binding.homeImageButton
 
-        img_but.setOnClickListener(object: View.OnClickListener {
+        imgBut.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v:View?) {
                 showMenu(v)
             }

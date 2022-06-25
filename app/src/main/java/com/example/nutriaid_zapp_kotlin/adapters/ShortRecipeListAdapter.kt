@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.nutriaid_zapp_kotlin.databinding.ShortRecipeListItemBinding
-import com.example.nutriaid_zapp_kotlin.models.short_recipe.RecipeShortData
-import com.example.nutriaid_zapp_kotlin.models.short_recipe.ShortRecipe
+import com.example.nutriaid_zapp_kotlin.models.shortRecipe.ShortRecipe
 
 class ShortRecipeListAdapter: RecyclerView.Adapter<MainViewHolder>() {
     var recipes = mutableListOf<ShortRecipe>()

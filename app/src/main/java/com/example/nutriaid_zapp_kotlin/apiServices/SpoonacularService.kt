@@ -1,14 +1,12 @@
-package com.example.nutriaid_zapp_kotlin.api_services
+package com.example.nutriaid_zapp_kotlin.apiServices
 
-import com.example.nutriaid_zapp_kotlin.models.full_recipe.RecipeFullData
-import com.example.nutriaid_zapp_kotlin.models.requests.SearchParameters
-import com.example.nutriaid_zapp_kotlin.models.short_recipe.RecipeShortData
+import com.example.nutriaid_zapp_kotlin.models.fullRecipe.RecipeFullData
+import com.example.nutriaid_zapp_kotlin.models.shortRecipe.RecipeShortData
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
 interface SpoonacularService {

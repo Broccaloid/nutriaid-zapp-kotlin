@@ -14,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.google.android.gms.tasks.OnCompleteListener
 
 
 class RegisterFragment: Fragment() {
@@ -30,9 +29,9 @@ class RegisterFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val name_editText = binding.usernameText
-        val pw_editText = binding.passwordText
-        val repeat_pw_editText = binding.repeatPasswordText
+        val nameEditText = binding.usernameText
+        val pwEditText = binding.passwordText
+        val repeatPwEditText = binding.repeatPasswordText
         val button = binding.registerButton
 
         fun updateUI(user: FirebaseUser?){
@@ -41,8 +40,8 @@ class RegisterFragment: Fragment() {
             }
         }
 
-        fun createAccount(username: String, pw: String, repeat_pw: String){
-            if(pw == repeat_pw){
+        fun createAccount(username: String, pw: String, repeatPw: String){
+            if(pw == repeatPw){
                 auth.createUserWithEmailAndPassword(username, pw)
                     .addOnCompleteListener(Activity()) { task ->
                         if (task.isSuccessful) {
@@ -64,9 +63,9 @@ class RegisterFragment: Fragment() {
 
         button.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v: View?) {
-                val username = name_editText.text.toString()
-                val pw = pw_editText.text.toString()
-                val repeat_pw = repeat_pw_editText.text.toString()
+                val username = nameEditText.text.toString()
+                val pw = pwEditText.text.toString()
+                val repeat_pw = repeatPwEditText.text.toString()
                 createAccount(username, pw, repeat_pw)
 
 
