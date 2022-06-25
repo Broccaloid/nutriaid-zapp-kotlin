@@ -14,9 +14,6 @@ import com.example.nutriaid_zapp_kotlin.models.requests.SearchParameters
 import com.example.nutriaid_zapp_kotlin.repositories.ApiRepository
 import com.example.nutriaid_zapp_kotlin.view_models.RecipeListFragmentViewModel
 import com.example.nutriaid_zapp_kotlin.view_models.factories.RecipeFragmentViewModelFactory
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 
 /**
@@ -27,18 +24,12 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
     lateinit var viewModel: RecipeListFragmentViewModel
     private val spoonacularService = SpoonacularService.getInstance()
     val adapter = ShortRecipeListAdapter()
-    private lateinit var auth : FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        auth = Firebase.auth
-        val currentUser = auth.currentUser
-        if(currentUser == null){
-            (activity as MainActivity).replaceFragment(LoginFragment())
-        }
         binding = FragmentRecipeListBinding.inflate(layoutInflater, container, false)
         viewModel = ViewModelProvider(
             this,
