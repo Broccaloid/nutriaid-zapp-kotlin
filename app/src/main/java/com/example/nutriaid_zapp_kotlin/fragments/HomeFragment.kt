@@ -1,4 +1,4 @@
-package com.example.nutriaid_zapp_kotlin
+package com.example.nutriaid_zapp_kotlin.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.nutriaid_zapp_kotlin.MainActivity
+import com.example.nutriaid_zapp_kotlin.R
+import com.example.nutriaid_zapp_kotlin.Recipe
 import com.example.nutriaid_zapp_kotlin.adapters.RecipeAdapter
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth

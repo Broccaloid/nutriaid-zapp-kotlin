@@ -1,4 +1,4 @@
-package com.example.nutriaid_zapp_kotlin
+package com.example.nutriaid_zapp_kotlin.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.nutriaid_zapp_kotlin.R
 import com.example.nutriaid_zapp_kotlin.adapters.ShortRecipeListAdapter
 import com.example.nutriaid_zapp_kotlin.apiServices.SpoonacularService
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentRecipeListBinding

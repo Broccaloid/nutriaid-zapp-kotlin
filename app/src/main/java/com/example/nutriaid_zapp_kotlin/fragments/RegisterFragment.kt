@@ -1,4 +1,4 @@
-package com.example.nutriaid_zapp_kotlin
+package com.example.nutriaid_zapp_kotlin.fragments
 
 import android.app.Activity
 import android.content.ContentValues.TAG
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.nutriaid_zapp_kotlin.MainActivity
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
