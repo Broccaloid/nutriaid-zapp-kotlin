@@ -7,6 +7,9 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nutriaid_zapp_kotlin.adapters.RecipeAdapter
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentHomeBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 /*
     todo: getRecipeRecommendations(): get real recipe recommendations
@@ -17,9 +20,15 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private var day: Int = 0;
+    private lateinit var auth : FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+        if(currentUser == null){
+            (activity as MainActivity).replaceFragment(LoginFragment())
+        }
         return binding.root
     }
 
