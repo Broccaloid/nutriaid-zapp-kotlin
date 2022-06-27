@@ -1,6 +1,8 @@
 package com.example.nutriaid_zapp_kotlin
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,8 @@ import com.example.nutriaid_zapp_kotlin.adapters.ShoppingListAdapter
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentShoppingBinding
 import com.example.nutriaid_zapp_kotlin.models.full_recipe.Ingredient
 import com.example.nutriaid_zapp_kotlin.models.full_recipe.Nutrient
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ShoppingFragment : Fragment() {
 
@@ -18,6 +22,7 @@ class ShoppingFragment : Fragment() {
     private val binding get() = _binding!!
     private var shoppingList = mutableListOf<Ingredient>()
     private lateinit var adapter: ShoppingListAdapter
+    private val db = Firebase.firestore
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentShoppingBinding.inflate(inflater, container, false)
@@ -31,6 +36,17 @@ class ShoppingFragment : Fragment() {
         val deleteSelecteditemsButton = binding.buttonDeleteSelecteditems
 
         // TODO: get data from database and put them in shoppinglist
+        db.collection("ingredients")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
         
 
         deleteAllItemsButton.setOnClickListener(object: View.OnClickListener {

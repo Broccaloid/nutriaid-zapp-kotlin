@@ -1,7 +1,9 @@
 package com.example.nutriaid_zapp_kotlin
 
+import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -15,22 +17,53 @@ import com.example.nutriaid_zapp_kotlin.models.requests.FullRecipeParameters
 import com.example.nutriaid_zapp_kotlin.repositories.ApiRepository
 import com.example.nutriaid_zapp_kotlin.view_models.RecipeActivityViewModel
 import com.example.nutriaid_zapp_kotlin.view_models.factories.RecipeActivityViewModelFactory
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class RecipeActivity : AppCompatActivity() {
     private lateinit var viewModel: RecipeActivityViewModel
     private val spoonacularService = SpoonacularService.getInstance()
     private lateinit var ingredientList: List<ExtendedIngredient>
+    private lateinit var auth: FirebaseAuth
+    private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe)
 
         val recipeId: Int = intent.extras?.get("recipeId") as Int
+        auth = Firebase.auth
+        val user =auth.currentUser
+        val email = auth.currentUser?.email
         val addIngredientsButton: Button = findViewById(R.id.add_ingredients_button)
+
+        if (user==null) {
+            addIngredientsButton.isEnabled = false
+        }
 
         addIngredientsButton.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v: View?) {
                 //Todo: add ingredientList to shopping list
+                val size = ingredientList.size - 1
+                for(i in 0..size) {
+                    val ingredient = hashMapOf(
+                        "email" to email,
+                        "ingredientId" to ingredientList[i].id,
+                        "amount" to ingredientList[i].amount,
+                        "unit" to ingredientList[i].unit,
+                        "name" to ingredientList[i].name
+                    )
+                    db.collection("ingredients")
+                        .add(ingredient)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                        }
+                        .addOnFailureListener{ e ->
+                            Log.w(TAG, "Error adding document", e)
+                        }
+                }
             }
         })
 
