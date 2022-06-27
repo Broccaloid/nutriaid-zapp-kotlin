@@ -30,7 +30,7 @@ class RegisterFragment: Fragment() {
                 val repeat_pw = repeat_pw_editText.text.toString()
 
                 /*
-                    TODO: - check username and passswords
+                    TODO: - check username and passwords
                           - register()
                           - goto different fragment
                  */

@@ -2,6 +2,7 @@ package com.example.nutriaid_zapp_kotlin.models.algorithm
 
 import com.example.nutriaid_zapp_kotlin.models.requests.SearchParameters
 import com.example.nutriaid_zapp_kotlin.api_services.SpoonacularService
+import com.example.nutriaid_zapp_kotlin.models.interfaces.IAlgorithm
 import com.example.nutriaid_zapp_kotlin.models.short_recipe.RecipeShortData
 import com.example.nutriaid_zapp_kotlin.repositories.ApiRepository
 import retrofit2.Call
