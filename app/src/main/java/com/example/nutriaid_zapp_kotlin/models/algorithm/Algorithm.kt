@@ -8,10 +8,42 @@ import com.example.nutriaid_zapp_kotlin.repositories.ApiRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
+
+    private var auth : FirebaseAuth = Firebase.auth
+
+    private var docRefMonday1 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/monday/mondayRecipes/first")
+    private var docRefMonday2 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/monday/mondayRecipes/second")
+    private var docRefMonday3 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/monday/mondayRecipes/third")
+    private var docRefTuesday1 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/tuesday/tuesdayRecipes/first")
+    private var docRefTuesday2 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/tuesday/tuesdayRecipes/second")
+    private var docRefTuesday3 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/tuesday/tuesdayRecipes/third")
+    private var docRefWednesday1 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/wednesday/wednesdayRecipes/first")
+    private var docRefWednesday2 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/wednesday/wednesdayRecipes/second")
+    private var docRefWednesday3 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/wednesday/wednesdayRecipes/third")
+    private var docRefThursday1 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/thursday/thursdayRecipes/first")
+    private var docRefThursday2 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/thursday/thursdayRecipes/second")
+    private var docRefThursday3 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/thursday/thursdayRecipes/third")
+    private var docRefFriday1 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/friday/fridayRecipes/first")
+    private var docRefFriday2 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/friday/fridayRecipes/second")
+    private var docRefFriday3 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/friday/fridayRecipes/third")
+    private var docRefSaturday1 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/saturday/saturdayRecipes/first")
+    private var docRefSaturday2 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/saturday/saturdayRecipes/second")
+    private var docRefSaturday3 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/saturday/saturdayRecipes/third")
+    private var docRefSunday1 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/sunday/sundayRecipes/first")
+    private var docRefSunday2 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/sunday/sundayRecipes/second")
+    private var docRefSunday3 : DocumentReference = FirebaseFirestore.getInstance().document("recipes/sunday/sundayRecipes/third")
+
+
     var number: String = "3"
     var cuisine: String = "0" //for recipe-exploring
     var diet: String = "0" //for recipe-exploring
@@ -86,6 +118,7 @@ class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
 
         if(!firstRun){ //if it is the first run, skip this
 
+
             //TODO: Get weeklyRecipes from Firebase
             lateinit var weeklyRecipes : ...
 
@@ -156,6 +189,7 @@ class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
                 if (recipes != null) {
                     for(i in recipes){
                         //TODO: Write i to firebase
+
                     }
                 }
             }
