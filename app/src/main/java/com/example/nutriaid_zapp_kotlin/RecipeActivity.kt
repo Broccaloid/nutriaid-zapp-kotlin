@@ -1,8 +1,9 @@
 package com.example.nutriaid_zapp_kotlin
 
+import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.nutriaid_zapp_kotlin.apiServices.SpoonacularService
 import com.example.nutriaid_zapp_kotlin.models.fullRecipe.ExtendedIngredient
+import com.example.nutriaid_zapp_kotlin.models.fullRecipe.Nutrient
 import com.example.nutriaid_zapp_kotlin.models.fullRecipe.RecipeFullData
 import com.example.nutriaid_zapp_kotlin.models.requests.FullRecipeParameters
 import com.example.nutriaid_zapp_kotlin.repositories.ApiRepository
@@ -27,15 +29,17 @@ class RecipeActivity : AppCompatActivity() {
     private val auth = Firebase.auth
     private val user = auth.currentUser
     private val db = Firebase.firestore
+    private var recipeNutrition = mutableListOf<Nutrient>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe)
 
+        recipeNutrition.clear()
         val recipeId: Int = intent.extras?.get("recipeId") as Int
         val email = auth.currentUser?.email
         val addIngredientsButton: Button = findViewById(R.id.add_ingredients_button)
-        val trackButton: ImageButton = findViewById(R.id.track_button)
+        val trackButton: Button = findViewById(R.id.track_button)
 
         if (user==null) {
             addIngredientsButton.isEnabled = false
@@ -45,7 +49,25 @@ class RecipeActivity : AppCompatActivity() {
         addIngredientsButton.setOnClickListener {
             //Todo: add ingredientList to shopping list
         }
-
+        trackButton.setOnClickListener {
+            for (i in 0 until recipeNutrition.size) {
+                val values = hashMapOf(
+                    "email" to email,
+                    "amount" to recipeNutrition[i].amount,
+                    "name" to recipeNutrition[i].name,
+                    "dailyNeed" to recipeNutrition[i].percentOfDailyNeeds,
+                    "unit" to recipeNutrition[i].unit,
+                )
+                db.collection("trackValues")
+                    .add(values)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w(TAG, "Error adding document", e)
+                    }
+            }
+        }
 
         /*
             GET DATA
@@ -57,6 +79,7 @@ class RecipeActivity : AppCompatActivity() {
 
         viewModel.recipe.observe(this) {
             showRecipeData(it)
+            getNutrients(it)
         }
         viewModel.errorMsg.observe(this) {
         }
@@ -64,6 +87,25 @@ class RecipeActivity : AppCompatActivity() {
         viewModel.getFullRecipeById(FullRecipeParameters(recipeId))
 
 
+    }
+    private fun getNutrients(recipe: RecipeFullData) {
+        val nutrition = recipe.nutrition
+        val listNutrients = nutrition.nutrients
+        for(n in listNutrients) {
+            if(n.name == "Calories") {
+                recipeNutrition.add(n)
+                println(n)
+            } else if(n.name == "Carbohydrates") {
+                recipeNutrition.add(n)
+                println(n)
+            } else if(n.name == "Fat") {
+                recipeNutrition.add(n)
+                println(n)
+            } else if(n.name == "Protein") {
+                recipeNutrition.add(n)
+                println(n)
+            }
+        }
     }
     private fun showRecipeData(recipe: RecipeFullData) {
         val recipeImg: ImageView = findViewById(R.id.recipe_image)

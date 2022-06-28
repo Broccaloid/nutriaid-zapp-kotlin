@@ -1,78 +1,97 @@
 package com.example.nutriaid_zapp_kotlin.fragments
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.nutriaid_zapp_kotlin.MainActivity
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentChartBinding
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-
+import com.example.nutriaid_zapp_kotlin.models.fullRecipe.Nutrient
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ChartFragment : Fragment() {
     private var _binding: FragmentChartBinding? = null
     private val binding get() = _binding!!
+    private val db = Firebase.firestore
+    private lateinit var auth: FirebaseAuth
+    private var nutrients = mutableListOf<Nutrient>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        auth = Firebase.auth
         _binding = FragmentChartBinding.inflate(inflater, container, false)
+        if(auth.currentUser == null){
+            (activity as MainActivity).replaceFragment(LoginFragment())
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val chart: LineChart = binding.chart
-        var calories = mutableListOf<Entry>()
-        var carbohydrates = mutableListOf<Entry>()
-        var fat = mutableListOf<Entry>()
-        var protein = mutableListOf<Entry>()
+        val email = auth.currentUser?.email
+        db.collection("trackValues")
+            .whereEqualTo("email", email)
+            .get()
+            .addOnSuccessListener { documents ->
+                for(document in documents) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
 
-        calories.add(Entry(0.0f,10f))
-        calories.add(Entry(0.5f, 2f))
-        calories.add(Entry(1.0f, 8f))
-        calories.add(Entry(1.5f, 3f))
-        calories.add(Entry(2.0f, 6f))
+                    nutrients.add(Nutrient(document.data["amount"] as Double, document.data["name"] as String, document.data["dailyNeed"] as Double, document.data["unit"] as String))
+                }
+                showChart()
+            }
+            .addOnFailureListener{ exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
 
-        carbohydrates.add(Entry(0f,2f))
-        carbohydrates.add(Entry(0.5f,4f))
-        carbohydrates.add(Entry(1.0f,1f))
-        carbohydrates.add(Entry(1.5f,10f))
-        carbohydrates.add(Entry(2.0f,6f))
+    }
+    private fun showChart() {
+        val chart: BarChart = binding.chart
+        var entries = mutableListOf<BarEntry>()
+        var amountCalories: Double = 0.0
+        var amountCarbohydrates: Double = 0.0
+        var amountFat: Double = 0.0
+        var amountProtein: Double = 0.0
 
-        fat.add(Entry(0f,2f))
-        fat.add(Entry(0.5f,3f))
-        fat.add(Entry(1.0f,5f))
-        fat.add(Entry(1.5f,4f))
-        fat.add(Entry(2.0f,2f))
+        for(n in nutrients) {
+            if(n.name == "Calories") {
+                amountCalories += n.amount
+            } else if(n.name == "Carbohydrates") {
+                amountCarbohydrates += n.amount
+            } else if(n.name == "Fat") {
+                amountFat += n.amount
+            } else if(n.name == "Protein") {
+                amountCalories += n.amount
+            }
+        }
 
-        protein.add(Entry(0f,1f))
-        protein.add(Entry(0.5f,2f))
-        protein.add(Entry(1.0f,12f))
-        protein.add(Entry(1.5f,6f))
-        protein.add(Entry(2.0f,0f))
+        println("Calories: ${amountCalories}")
+        println("Carbohydrates: ${amountCarbohydrates}")
+        println("Fat: ${amountFat}")
+        println("Protein: ${amountProtein}")
 
-        var dataSetCalories = LineDataSet(calories, "Calories")
-        dataSetCalories.axisDependency = YAxis.AxisDependency.LEFT
-        var dataSetCarbohydrate = LineDataSet(calories, "Carbohydrate")
-        dataSetCalories.axisDependency = YAxis.AxisDependency.LEFT
-        var dataSetFat = LineDataSet(fat, "Fat")
-        dataSetCalories.axisDependency = YAxis.AxisDependency.LEFT
-        var dataSetProtein = LineDataSet(protein, "Protein")
-        dataSetCalories.axisDependency = YAxis.AxisDependency.LEFT
 
-        var dataSets = mutableListOf<ILineDataSet>()
-        dataSets.add(dataSetCalories)
-        dataSets.add(dataSetCarbohydrate)
-        dataSets.add(dataSetFat)
-        dataSets.add(dataSetProtein)
 
-        var data = LineData(dataSets)
+       /* entries.add(BarEntry(0f,amountCalories))
+        entries.add(BarEntry(0f,amountCarbohydrates))
+        entries.add(BarEntry(0f,amountFat))
+        entries.add(BarEntry(0f,amountProtein)) */
+
+        var set = BarDataSet(entries, "BarDataSet")
+        var data = BarData(set)
+        data.barWidth = 0.8f
         chart.data = data
+        chart.setFitBars(true)
         chart.invalidate()
     }
 
