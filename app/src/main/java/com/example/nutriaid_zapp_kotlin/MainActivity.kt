@@ -2,8 +2,6 @@ package com.example.nutriaid_zapp_kotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -58,7 +56,6 @@ class MainActivity : AppCompatActivity() {
             val fragManager: FragmentManager = supportFragmentManager
             val fragTransaction: FragmentTransaction = fragManager.beginTransaction()
             fragTransaction.replace(R.id.main_container, fragment)
-            //fragTransaction.addToBackStack(null)
             fragTransaction.commit()
         }
     }
