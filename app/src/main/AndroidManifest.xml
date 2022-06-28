@@ -17,10 +17,10 @@
         android:theme="@style/Theme.Nutriaidzappkotlin"
         tools:targetApi="31">
         <activity
-            android:name=".RecipeActivity"
+            android:name="com.example.nutriaid_zapp_kotlin.RecipeActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.nutriaid_zapp_kotlin.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
