@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
@@ -20,19 +21,28 @@ class RecipeActivity : AppCompatActivity() {
     private lateinit var viewModel: RecipeActivityViewModel
     private val spoonacularService = SpoonacularService.getInstance()
     private lateinit var ingredientList: List<ExtendedIngredient>
+    private val auth = Firebase.auth
+    private val user = auth.currentUser
+    private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe)
 
         val recipeId: Int = intent.extras?.get("recipeId") as Int
+        val email = auth.currentUser?.email
         val addIngredientsButton: Button = findViewById(R.id.add_ingredients_button)
+        val trackButton: ImageButton = findViewById(R.id.track_button)
 
-        addIngredientsButton.setOnClickListener(object: View.OnClickListener {
-            override fun onClick(v: View?) {
-                //Todo: add ingredientList to shopping list
-            }
-        })
+        if (user==null) {
+            addIngredientsButton.isEnabled = false
+            trackButton.isEnabled = false
+        }
+
+        addIngredientsButton.setOnClickListener {
+            //Todo: add ingredientList to shopping list
+        }
+
 
         /*
             GET DATA
