@@ -67,6 +67,14 @@
                     app:drawableStartCompat="@drawable/ic_baseline_star_24" />
 
             </LinearLayout>
+            <Button
+                android:id="@+id/track_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_gravity="center"
+                android:text="Track Recipe"
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,7 +95,7 @@
                     android:layout_gravity="right"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="8dp"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:text="Add Ingredients"
                     app:drawableStartCompat="@drawable/ic_baseline_shopping_cart_24" />
             </LinearLayout>
