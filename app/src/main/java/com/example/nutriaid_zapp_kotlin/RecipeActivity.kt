@@ -4,22 +4,22 @@ import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.example.nutriaid_zapp_kotlin.api_services.SpoonacularService
-import com.example.nutriaid_zapp_kotlin.models.full_recipe.ExtendedIngredient
-import com.example.nutriaid_zapp_kotlin.models.full_recipe.RecipeFullData
+import com.example.nutriaid_zapp_kotlin.apiServices.SpoonacularService
+import com.example.nutriaid_zapp_kotlin.models.fullRecipe.ExtendedIngredient
+import com.example.nutriaid_zapp_kotlin.models.fullRecipe.RecipeFullData
 import com.example.nutriaid_zapp_kotlin.models.requests.FullRecipeParameters
 import com.example.nutriaid_zapp_kotlin.repositories.ApiRepository
-import com.example.nutriaid_zapp_kotlin.view_models.RecipeActivityViewModel
-import com.example.nutriaid_zapp_kotlin.view_models.factories.RecipeActivityViewModelFactory
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.example.nutriaid_zapp_kotlin.viewModels.RecipeActivityViewModel
+import com.example.nutriaid_zapp_kotlin.viewModels.factories.RecipeActivityViewModelFactory
+
 
 class RecipeActivity : AppCompatActivity() {
     private lateinit var viewModel: RecipeActivityViewModel
