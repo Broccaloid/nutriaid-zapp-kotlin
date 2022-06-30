@@ -41,9 +41,9 @@ class ShoppingListAdapter(private val data: List<DBIngredient>) : RecyclerView.A
             val shoppingListItemState: Boolean = shoppingListItem.isChecked
             itemStateArray.put(layoutPosition, shoppingListItemState)
             if(shoppingListItemState) {
-                selectedItems.add(data[adapterPosition].listId)
+                selectedItems.add(data[adapterPosition].ingredientId)
             } else {
-                selectedItems.remove(data[adapterPosition].listId)
+                selectedItems.remove(data[adapterPosition].ingredientId)
             }
         }
     }
