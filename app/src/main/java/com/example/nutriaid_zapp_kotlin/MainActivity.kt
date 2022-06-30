@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
             val fragManager: FragmentManager = supportFragmentManager
             val fragTransaction: FragmentTransaction = fragManager.beginTransaction()
             fragTransaction.replace(R.id.main_container, fragment)
-            //fragTransaction.addToBackStack(null)
             fragTransaction.commit()
         }
     }

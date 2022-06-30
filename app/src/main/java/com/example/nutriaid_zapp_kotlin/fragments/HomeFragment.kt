@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var day: Int = 0;
+    private var day: Int = 0
     private lateinit var auth : FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
