@@ -61,6 +61,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
-    //MPAndroidChart
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    //GraphView
+    implementation 'com.jjoe64:graphview:4.2.2'
 }

@@ -1,6 +1,7 @@
 package com.example.nutriaid_zapp_kotlin.fragments
 
 import android.content.ContentValues.TAG
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,14 +11,14 @@ import androidx.fragment.app.Fragment
 import com.example.nutriaid_zapp_kotlin.MainActivity
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentChartBinding
 import com.example.nutriaid_zapp_kotlin.models.fullRecipe.Nutrient
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.LegendRenderer
+import com.jjoe64.graphview.series.BarGraphSeries
+import com.jjoe64.graphview.series.DataPoint
 
 class ChartFragment : Fragment() {
     private var _binding: FragmentChartBinding? = null
@@ -27,8 +28,8 @@ class ChartFragment : Fragment() {
     private var nutrients = mutableListOf<Nutrient>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        auth = Firebase.auth
         _binding = FragmentChartBinding.inflate(inflater, container, false)
+        auth = Firebase.auth
         if(auth.currentUser == null){
             (activity as MainActivity).replaceFragment(LoginFragment())
         }
@@ -38,6 +39,7 @@ class ChartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        nutrients.clear()
         val email = auth.currentUser?.email
         db.collection("trackValues")
             .whereEqualTo("email", email)
@@ -55,48 +57,72 @@ class ChartFragment : Fragment() {
             }
 
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun showChart() {
-        val chart: BarChart = binding.chart
-        var entries = mutableListOf<BarEntry>()
-        var amountCalories: Double = 0.0
-        var amountCarbohydrates: Double = 0.0
-        var amountFat: Double = 0.0
-        var amountProtein: Double = 0.0
+        var amountCalories = 0.0
+        var amountCarbohydrates = 0.0
+        var amountFat = 0.0
+        var amountProtein = 0.0
 
         for(n in nutrients) {
-            if(n.name == "Calories") {
+            if (n.name == "Calories") {
                 amountCalories += n.amount
             } else if(n.name == "Carbohydrates") {
                 amountCarbohydrates += n.amount
             } else if(n.name == "Fat") {
                 amountFat += n.amount
             } else if(n.name == "Protein") {
-                amountCalories += n.amount
+                amountProtein += n.amount
             }
         }
 
-        println("Calories: ${amountCalories}")
-        println("Carbohydrates: ${amountCarbohydrates}")
-        println("Fat: ${amountFat}")
-        println("Protein: ${amountProtein}")
+        val graph: GraphView = binding.graph
+
+        val series0 = BarGraphSeries(arrayOf(DataPoint(0.0, 0.0)))
+        val series1 = BarGraphSeries(arrayOf(DataPoint(0.5, amountCalories)))
+        val series2 = BarGraphSeries(arrayOf(DataPoint(1.0, amountCarbohydrates)))
+        val series3 = BarGraphSeries(arrayOf(DataPoint(1.5, amountFat)))
+        val series4 = BarGraphSeries(arrayOf(DataPoint(2.0, amountProtein)))
+        val series = BarGraphSeries(arrayOf(DataPoint(2.5, 0.0)))
+
+        graph.addSeries(series0)
+        graph.addSeries(series1)
+        graph.addSeries(series2)
+        graph.addSeries(series3)
+        graph.addSeries(series4)
+        graph.addSeries(series)
+
+        series1.title = "Calories [kcal]"
+        series1.isDrawValuesOnTop = true
+        series1.valuesOnTopColor = Color.BLACK
+        series1.color = Color.GREEN
+        series2.title = "Carbohydrates [g]"
+        series2.isDrawValuesOnTop = true
+        series2.valuesOnTopColor = Color.BLACK
+        series2.color = Color.BLUE
+        series3.title = "Fat [g]"
+        series3.isDrawValuesOnTop = true
+        series3.valuesOnTopColor = Color.BLACK
+        series3.color = Color.MAGENTA
+        series4.title = "Protein[g]"
+        series4.isDrawValuesOnTop = true
+        series4.valuesOnTopColor = Color.BLACK
+        series4.color = Color.YELLOW
+
+        graph.gridLabelRenderer.horizontalAxisTitle = "Nutrient"
+        graph.gridLabelRenderer.isHorizontalLabelsVisible = false
 
 
+        graph.title = "Your Nutrition today"
+        graph.viewport.isScalable = true // enables horizontal zooming and scrolling
+        graph.viewport.setScalableY(true) // enables vertical zooming and scrolling
+        graph.legendRenderer.isVisible = true
+        graph.legendRenderer.align = LegendRenderer.LegendAlign.TOP
 
-       /* entries.add(BarEntry(0f,amountCalories))
-        entries.add(BarEntry(0f,amountCarbohydrates))
-        entries.add(BarEntry(0f,amountFat))
-        entries.add(BarEntry(0f,amountProtein)) */
-
-        var set = BarDataSet(entries, "BarDataSet")
-        var data = BarData(set)
-        data.barWidth = 0.8f
-        chart.data = data
-        chart.setFitBars(true)
-        chart.invalidate()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
