@@ -45,6 +45,7 @@ class ShoppingFragment : Fragment() {
         shoppingList.clear()
 
         loadData()
+        
         /*
             OnClickListener
          */
@@ -124,7 +125,6 @@ class ShoppingFragment : Fragment() {
     }
 
     private fun showData() {
-
         val recyclerView = binding.shoppingListRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = ShoppingListAdapter(shoppingList)
