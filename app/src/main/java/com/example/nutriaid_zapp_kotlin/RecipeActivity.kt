@@ -15,13 +15,14 @@ import com.example.nutriaid_zapp_kotlin.models.fullRecipe.Nutrient
 import com.example.nutriaid_zapp_kotlin.models.fullRecipe.RecipeFullData
 import com.example.nutriaid_zapp_kotlin.models.requests.FullRecipeParameters
 import com.example.nutriaid_zapp_kotlin.repositories.ApiRepository
-import com.example.nutriaid_zapp_kotlin.viewModels.RecipeActivityViewModel
-import com.example.nutriaid_zapp_kotlin.viewModels.factories.RecipeActivityViewModelFactory
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.example.nutriaid_zapp_kotlin.viewModels.RecipeActivityViewModel
+import com.example.nutriaid_zapp_kotlin.viewModels.factories.RecipeActivityViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class RecipeActivity : AppCompatActivity() {
     private lateinit var viewModel: RecipeActivityViewModel
@@ -42,7 +43,7 @@ class RecipeActivity : AppCompatActivity() {
         val addIngredientsButton: Button = findViewById(R.id.add_ingredients_button)
         val trackButton: Button = findViewById(R.id.track_button)
 
-        if (user==null) {
+        if (user == null) {
             addIngredientsButton.isEnabled = false
             trackButton.isEnabled = false
         }
@@ -65,6 +66,22 @@ class RecipeActivity : AppCompatActivity() {
                 )
                 db.collection("trackValues")
                     .add(values)
+            }
+        }
+
+        addIngredientsButton.setOnClickListener {
+            val size = ingredientList.size - 1
+            for (i in 0..size) {
+                val id: Int = ingredientList[i].id
+                val ingredient = hashMapOf(
+                    "email" to email,
+                    "ingredientId" to id,
+                    "amount" to ingredientList[i].amount,
+                    "unit" to ingredientList[i].unit,
+                    "name" to ingredientList[i].name
+                )
+                db.collection("ingredients")
+                    .add(ingredient)
                     .addOnSuccessListener { documentReference ->
                         Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
                     }
@@ -76,7 +93,7 @@ class RecipeActivity : AppCompatActivity() {
 
         /*
             GET DATA
-         */
+        */
         viewModel = ViewModelProvider(
             this,
             RecipeActivityViewModelFactory(ApiRepository(spoonacularService))
@@ -90,28 +107,24 @@ class RecipeActivity : AppCompatActivity() {
         }
 
         viewModel.getFullRecipeById(FullRecipeParameters(recipeId))
-
-
     }
+
     private fun getNutrients(recipe: RecipeFullData) {
         val nutrition = recipe.nutrition
         val listNutrients = nutrition.nutrients
-        for(n in listNutrients) {
-            if(n.name == "Calories") {
+        for (n in listNutrients) {
+            if (n.name == "Calories") {
                 recipeNutrition.add(n)
-                println(n)
-            } else if(n.name == "Carbohydrates") {
+            } else if (n.name == "Carbohydrates") {
                 recipeNutrition.add(n)
-                println(n)
-            } else if(n.name == "Fat") {
+            } else if (n.name == "Fat") {
                 recipeNutrition.add(n)
-                println(n)
-            } else if(n.name == "Protein") {
+            } else if (n.name == "Protein") {
                 recipeNutrition.add(n)
-                println(n)
             }
         }
     }
+
     private fun showRecipeData(recipe: RecipeFullData) {
         val recipeImg: ImageView = findViewById(R.id.recipe_image)
         val recipeTitle: TextView = findViewById(R.id.recipe_title)
@@ -123,7 +136,7 @@ class RecipeActivity : AppCompatActivity() {
         val recipeIngredients: TextView = findViewById(R.id.recipe_ingredients)
         ingredientList = recipe.extendedIngredients
         var ingredients = ""
-        for(i in ingredientList) {
+        for (i in ingredientList) {
             ingredients += "${i.amount} ${i.unit}:  ${i.name} \n"
         }
 
@@ -132,11 +145,11 @@ class RecipeActivity : AppCompatActivity() {
         recipeCredits.text = recipe.creditsText
         recipeTime.text = "${recipe.readyInMinutes} min"
         recipeLikes.text = "${recipe.aggregateLikes} likes"
-        recipeServings.text ="${recipe.servings} servings"
+        recipeServings.text = "${recipe.servings} servings"
         recipeIngredients.text = ingredients
         recipeInstructions.text = recipe.instructions
-
     }
+
     private fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
         val formatter = SimpleDateFormat(format, locale)
         return formatter.format(this)
