@@ -5,10 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.nutriaid_zapp_kotlin.databinding.ShortRecipeListItemBinding
-import com.example.nutriaid_zapp_kotlin.models.short_recipe.RecipeShortData
-import com.example.nutriaid_zapp_kotlin.models.short_recipe.ShortRecipe
+import com.example.nutriaid_zapp_kotlin.models.shortRecipe.ShortRecipe
 
-class ShortRecipeListAdapter: RecyclerView.Adapter<MainViewHolder>() {
+class ShortRecipeListAdapter(private val onItemClick: (position: Int) -> Unit): RecyclerView.Adapter<MainViewHolder>() {
     var recipes = mutableListOf<ShortRecipe>()
     fun setRecipeList(recipes: List<ShortRecipe>) {
         this.recipes = recipes.toMutableList()
@@ -17,7 +16,7 @@ class ShortRecipeListAdapter: RecyclerView.Adapter<MainViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ShortRecipeListItemBinding.inflate(inflater, parent, false)
-        return MainViewHolder(binding)
+        return MainViewHolder(binding, onItemClick)
     }
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val recipe = recipes[position]
@@ -28,5 +27,10 @@ class ShortRecipeListAdapter: RecyclerView.Adapter<MainViewHolder>() {
         return recipes.size
     }
 }
-class MainViewHolder(val binding: ShortRecipeListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class MainViewHolder(val binding: ShortRecipeListItemBinding, private val onItemClick: (position: Int) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    init {
+        itemView.setOnClickListener {
+            onItemClick(adapterPosition)
+        }
+    }
 }

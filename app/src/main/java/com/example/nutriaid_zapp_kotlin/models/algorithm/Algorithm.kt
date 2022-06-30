@@ -2,16 +2,15 @@ package com.example.nutriaid_zapp_kotlin.models.algorithm
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.example.nutriaid_zapp_kotlin.apiServices.SpoonacularService
 import com.example.nutriaid_zapp_kotlin.models.requests.SearchParameters
-import com.example.nutriaid_zapp_kotlin.api_services.SpoonacularService
-import com.example.nutriaid_zapp_kotlin.models.full_recipe.RecipeFullData
+import com.example.nutriaid_zapp_kotlin.models.fullRecipe.RecipeFullData
 import com.example.nutriaid_zapp_kotlin.models.interfaces.IAlgorithm
 import com.example.nutriaid_zapp_kotlin.models.requests.FullRecipeParameters
-import com.example.nutriaid_zapp_kotlin.models.short_recipe.RecipeShortData
-import com.example.nutriaid_zapp_kotlin.models.short_recipe.ShortRecipe
+import com.example.nutriaid_zapp_kotlin.models.shortRecipe.RecipeShortData
+import com.example.nutriaid_zapp_kotlin.models.shortRecipe.ShortRecipe
 import com.example.nutriaid_zapp_kotlin.repositories.ApiRepository
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -22,6 +21,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import retrofit2.Callback
 
 
 class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {

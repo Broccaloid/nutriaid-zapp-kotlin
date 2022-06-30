@@ -1,7 +1,5 @@
 package com.example.nutriaid_zapp_kotlin
 
-import android.provider.Settings.Global.getString
-
 /*
     test class for RecipeAdapter
     todo: change to real recipe class
