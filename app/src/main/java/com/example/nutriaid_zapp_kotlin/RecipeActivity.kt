@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +20,8 @@ import com.example.nutriaid_zapp_kotlin.viewModels.factories.RecipeActivityViewM
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RecipeActivity : AppCompatActivity() {
     private lateinit var viewModel: RecipeActivityViewModel
@@ -50,9 +51,13 @@ class RecipeActivity : AppCompatActivity() {
             //Todo: add ingredientList to shopping list
         }
         trackButton.setOnClickListener {
+            val date = getCurrentDateTime()
+            val dateInString = date.toString("yyyy/MM/dd")
+
             for (i in 0 until recipeNutrition.size) {
                 val values = hashMapOf(
                     "email" to email,
+                    "date" to dateInString,
                     "amount" to recipeNutrition[i].amount,
                     "name" to recipeNutrition[i].name,
                     "dailyNeed" to recipeNutrition[i].percentOfDailyNeeds,
@@ -131,5 +136,13 @@ class RecipeActivity : AppCompatActivity() {
         recipeIngredients.text = ingredients
         recipeInstructions.text = recipe.instructions
 
+    }
+    private fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
+
+    private fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
     }
 }

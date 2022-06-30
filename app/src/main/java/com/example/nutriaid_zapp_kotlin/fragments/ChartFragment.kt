@@ -19,6 +19,8 @@ import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ChartFragment : Fragment() {
     private var _binding: FragmentChartBinding? = null
@@ -39,10 +41,13 @@ class ChartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val date = getCurrentDateTime().toString("yyyy/MM/dd")
+
         nutrients.clear()
         val email = auth.currentUser?.email
         db.collection("trackValues")
             .whereEqualTo("email", email)
+            .whereEqualTo("date", date)
             .get()
             .addOnSuccessListener { documents ->
                 for(document in documents) {
@@ -50,7 +55,9 @@ class ChartFragment : Fragment() {
 
                     nutrients.add(Nutrient(document.data["amount"] as Double, document.data["name"] as String, document.data["dailyNeed"] as Double, document.data["unit"] as String))
                 }
-                showChart()
+                if(auth.currentUser != null) {
+                    showChart()
+                }
             }
             .addOnFailureListener{ exception ->
                 Log.w(TAG, "Error getting documents: ", exception)
@@ -124,5 +131,13 @@ class ChartFragment : Fragment() {
         graph.legendRenderer.isVisible = true
         graph.legendRenderer.align = LegendRenderer.LegendAlign.TOP
 
+    }
+    private fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
+
+    private fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
     }
 }
