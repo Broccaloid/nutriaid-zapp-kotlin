@@ -45,7 +45,6 @@ class ShoppingFragment : Fragment() {
         shoppingList.clear()
 
         loadData()
-        
         /*
             OnClickListener
          */
