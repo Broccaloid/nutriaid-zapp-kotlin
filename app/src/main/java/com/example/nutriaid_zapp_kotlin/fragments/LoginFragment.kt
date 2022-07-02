@@ -81,7 +81,7 @@ class LoginFragment : Fragment() {
                             alarmManager.setRepeating(
                                 AlarmManager.RTC_WAKEUP,
                                 calendar.timeInMillis,
-                                60000,
+                                AlarmManager.INTERVAL_DAY * 7,
                                 pendingIntent
                             )
                             Log.d("mytag", "alarm set")
