@@ -28,7 +28,7 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
     private lateinit var binding: FragmentRecipeListBinding
     lateinit var viewModel: RecipeListFragmentViewModel
     private val spoonacularService = SpoonacularService.getInstance()
-    val adapter = ShortRecipeListAdapter{ position -> onRecipeClick(position) }
+    val adapter = ShortRecipeListAdapter { position -> onRecipeClick(position) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +56,8 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
     override fun onResume() {
         super.onResume()
         val intolerances = resources.getStringArray(R.array.intolerances)
-        val intolerancesAdapter = ArrayAdapter(requireContext(), R.layout.drop_down_item, intolerances)
+        val intolerancesAdapter =
+            ArrayAdapter(requireContext(), R.layout.drop_down_item, intolerances)
         binding.intolerance.setAdapter(intolerancesAdapter)
 
         val cuisines = resources.getStringArray(R.array.cuisines)
@@ -74,16 +75,22 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
             var diet: String? = null
             var cuisine: String? = null
             var intolerance: String? = null
-            if (binding.diet.text.toString() != "None"){
+            if (binding.diet.text.toString() != "None") {
                 diet = binding.diet.text.toString()
             }
-            if (binding.cuisine.text.toString() != "None"){
+            if (binding.cuisine.text.toString() != "None") {
                 cuisine = binding.cuisine.text.toString()
             }
-            if (binding.intolerance.text.toString() != "None"){
+            if (binding.intolerance.text.toString() != "None") {
                 intolerance = binding.intolerance.text.toString()
             }
-            viewModel.getListShortRecipes(SearchParameters(diet = diet, cuisine = cuisine, intolerances = intolerance))
+            viewModel.getListShortRecipes(
+                SearchParameters(
+                    diet = diet,
+                    cuisine = cuisine,
+                    intolerances = intolerance
+                )
+            )
         }
     }
 

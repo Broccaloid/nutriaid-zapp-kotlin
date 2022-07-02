@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nutriaid_zapp_kotlin.R
-import com.example.nutriaid_zapp_kotlin.models.db_response.DBIngredient
+import com.example.nutriaid_zapp_kotlin.models.dbResponse.DBIngredient
 
 class ShoppingListAdapter(private val data: List<DBIngredient>) : RecyclerView.Adapter<ShoppingListAdapter.ViewHolder>() {
     private val itemStateArray = SparseBooleanArray()
