@@ -62,9 +62,9 @@ class LoginFragment : Fragment() {
                         calendar.timeInMillis = System.currentTimeMillis()
 
                         // Setting the specific time for the alarm manager to trigger the intent
-                        calendar.set(Calendar.HOUR_OF_DAY, 20) //fire alarm everyday at 12pm
-                        calendar.set(Calendar.MINUTE, 48)
-                        calendar.set(Calendar.SECOND, 6)
+                        calendar.set(Calendar.HOUR_OF_DAY, 1) //fire alarm everyday at 1am
+                        calendar.set(Calendar.MINUTE, 0)
+                        calendar.set(Calendar.SECOND, 0)
                         if(calendar.after(calendarNow)) { //so that the alarm doesnt fire instantly
                             val REQUESTCODE = 1
                             // Creating the pending intent to send to the BroadcastReceiver
