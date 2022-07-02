@@ -10,6 +10,8 @@ class SearchParameters(
     val query: String? = null,
     val intolerances: String? = null,
     val sort: String? = "random",
+    val addRecipeNutrition: Boolean = false,
+    val addRecipeInformation: Boolean = false,
     val minCarbs: String? = null,
     val minProtein: String? = null,
     val minFat: String? = null,

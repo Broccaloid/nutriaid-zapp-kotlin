@@ -24,19 +24,23 @@ class HomeFragmentViewModel : ViewModel() {
             .whereEqualTo("email", userEmail)
             .get()
             .addOnSuccessListener { recipes ->
-                for (item in recipes) {
-                    Log.d(ContentValues.TAG, "${item.id} => ${item.data}")
-                    try {
-                        list.add(
-                            DBRecipe(
-                                id = item.data["id"] as Int? ?: 1,
-                                title = item.data["title"] as String? ?: "Default",
-                                image = item.data["image"] as String? ?: "https://spoonacular.com/recipeImages/637902-312x231.jpg",
-                                aggregateLikes = item.data["aggregateLikes"] as String? ?: "100",
-                                readyInMinutes = item.data["readyInMinutes"] as String? ?: "45"
+                run {
+                    for (item in recipes) {
+                        Log.d(ContentValues.TAG, "${item.id} => ${item.data}")
+                        try {
+                            list.add(
+                                DBRecipe(
+                                    id = item.data["recipeId"] as Int? ?: 1,
+                                    title = item.data["title"] as String? ?: "Default",
+                                    image = item.data["image"] as String?
+                                        ?: "https://spoonacular.com/recipeImages/637902-312x231.jpg",
+                                    aggregateLikes = item.data["aggregateLikes"] as String?
+                                        ?: "100",
+                                    readyInMinutes = item.data["readyInMinutes"] as String? ?: "45"
+                                )
                             )
-                        )
-                    } catch (e: Exception) {
+                        } catch (e: Exception) {
+                        }
                     }
                     try {
                         when (day) {
