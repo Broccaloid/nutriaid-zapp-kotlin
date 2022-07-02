@@ -1,20 +1,27 @@
 package com.example.nutriaid_zapp_kotlin.fragments
 
 import android.app.Activity
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.nutriaid_zapp_kotlin.MainActivity
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentLoginBinding
+import com.example.nutriaid_zapp_kotlin.models.algorithm.AlarmReceiver
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 
 class LoginFragment : Fragment() {
@@ -52,7 +59,7 @@ class LoginFragment : Fragment() {
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(this.context, "Authentication failed.",
+                        Toast.makeText(this.context, "Authentification failed",
                             Toast.LENGTH_SHORT).show()
                         updateUI(null)
                     }

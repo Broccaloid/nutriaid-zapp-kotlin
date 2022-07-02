@@ -1,6 +1,11 @@
 package com.example.nutriaid_zapp_kotlin.fragments
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -13,9 +18,11 @@ import com.example.nutriaid_zapp_kotlin.R
 import com.example.nutriaid_zapp_kotlin.Recipe
 import com.example.nutriaid_zapp_kotlin.adapters.RecipeAdapter
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentHomeBinding
+import com.example.nutriaid_zapp_kotlin.models.algorithm.AlarmReceiver
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 /*
     todo: getRecipeRecommendations(): get real recipe recommendations
@@ -34,6 +41,41 @@ class HomeFragment : Fragment() {
         val currentUser = auth.currentUser
         if(currentUser == null){
             (activity as MainActivity).replaceFragment(LoginFragment())
+        }
+        else{
+            //set alarm if user is valid
+            val calendar = Calendar.getInstance()
+            val calendar2 = Calendar.getInstance()
+            calendar.timeInMillis = System.currentTimeMillis()
+            if(!calendar.before(calendar2)) { //so that the alarm doesnt fire instantly
+
+
+                val REQUESTCODE = 1
+                // Creating the pending intent to send to the BroadcastReceiver
+                var alarmManager =
+                    context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                val intent = Intent(context, AlarmReceiver::class.java)
+                var pendingIntent = PendingIntent.getBroadcast(
+                    context,
+                    REQUESTCODE,
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+                // Setting the specific time for the alarm manager to trigger the intent
+
+                //calendar.timeInMillis = System.currentTimeMillis()
+                calendar.set(Calendar.HOUR_OF_DAY, 11) //fire alarm everyday at 12pm
+                calendar.set(Calendar.MINUTE, 40)
+                calendar.set(Calendar.SECOND, 6)
+                // Starts the alarm manager
+                alarmManager.setRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.timeInMillis,
+                    60000,
+                    pendingIntent
+                )
+                Log.d("mytag", "alarm set")
+            }
         }
         return binding.root
     }
