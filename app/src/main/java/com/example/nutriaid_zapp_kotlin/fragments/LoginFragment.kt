@@ -87,7 +87,7 @@ class LoginFragment : Fragment() {
                             Log.d("mytag", "alarm set")
                         }
                         else{
-                            calendar.add(Calendar.DAY_OF_MONTH, 1) //set alarm for tomorrow
+                            calendar.add(Calendar.DAY_OF_MONTH, 7) //set alarm for next week
                             val REQUESTCODE = 1
                             // Creating the pending intent to send to the BroadcastReceiver
                             var alarmManager =
@@ -103,7 +103,7 @@ class LoginFragment : Fragment() {
                             alarmManager.setRepeating(
                                 AlarmManager.RTC_WAKEUP,
                                 calendar.timeInMillis,
-                                AlarmManager.INTERVAL_DAY,
+                                AlarmManager.INTERVAL_DAY * 7, //fire alarm once a week
                                 pendingIntent
                             )
                             Log.d("mytag", "alarm set")

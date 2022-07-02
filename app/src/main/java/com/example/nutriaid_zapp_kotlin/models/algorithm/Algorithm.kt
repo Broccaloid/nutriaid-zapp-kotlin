@@ -433,7 +433,7 @@ class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
 
 
             //get recipes from spoonacular and write them to firebase
-            var api: ApiRepository = ApiRepository(SpoonacularService.getInstance())
+            /*var api: ApiRepository = ApiRepository(SpoonacularService.getInstance())
             var search = SearchParameters(
                 number = number,
                 diet = userSpecs.diet,
@@ -454,8 +454,34 @@ class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
                     response: Response<RecipeShortData>
                 ) {
 
-                    val recipes = response.body()?.results //list<Typ shortRecipe>
+                    val recipes = response.body()?.results //list<Typ shortRecipe>*/
 
+
+                    val rec1 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta1")
+                    val rec2 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta2")
+                    val rec3 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta3")
+                    val rec4 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta4")
+                    val rec5 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta5")
+                    val rec6 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta6")
+                    val rec7 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta7")
+                    val rec8 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta8")
+                    val rec9 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta9")
+                    val rec10 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta10")
+                    val rec11 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta11")
+                    val rec12 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta12")
+                    val rec13 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta13")
+                    val rec14 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta14")
+                    val rec15 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta15")
+                    val rec16 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta16")
+                    val rec17 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta17")
+                    val rec18 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta18")
+                    val rec19 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta19")
+                    val rec20 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta20")
+                    val rec21 = ShortRecipe(300, "50", "50", 1234, "https://pixabay.com/de/photos/pasta-carbonara-spaghetti-712664/", "jpg", "50", "pasta21")
+
+
+
+                    val recipes = listOf<ShortRecipe>(rec1, rec2, rec3, rec4, rec5, rec6, rec7, rec8, rec9, rec10, rec11, rec12, rec13, rec14, rec15, rec16, rec17, rec18, rec19, rec20, rec21)
                     if (recipes != null) {
                         Log.d("mytag", "title from first new recipe"+recipes[0].title)
                         Log.d("mytag", "carbs: "+recipes[0].carbs)
@@ -480,10 +506,10 @@ class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
                                 }
                         }
                     }
-                }
+                //}
 
-                override fun onFailure(call: Call<RecipeShortData>, t: Throwable) {}
-            })
+               // override fun onFailure(call: Call<RecipeShortData>, t: Throwable) {}
+            //})
         }
     }
 }
