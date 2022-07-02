@@ -9,6 +9,7 @@ class SearchParameters(
     val diet: String? = null,
     val query: String? = null,
     val intolerances: String? = null,
+    val sort: String? = "random",
     val minCarbs: String? = null,
     val minProtein: String? = null,
     val minFat: String? = null,

@@ -1,16 +1,24 @@
 package com.example.nutriaid_zapp_kotlin
 
+import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.nutriaid_zapp_kotlin.databinding.ActivityMainBinding
 import com.example.nutriaid_zapp_kotlin.fragments.*
+import com.example.nutriaid_zapp_kotlin.models.algorithm.AlarmReceiver
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private val homeFragment = HomeFragment()
