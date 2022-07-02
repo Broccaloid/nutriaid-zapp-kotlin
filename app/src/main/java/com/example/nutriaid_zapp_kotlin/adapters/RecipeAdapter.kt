@@ -9,11 +9,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.nutriaid_zapp_kotlin.R
-import com.example.nutriaid_zapp_kotlin.Recipe
 import com.example.nutriaid_zapp_kotlin.RecipeActivity
+import com.example.nutriaid_zapp_kotlin.models.dbResponse.DBRecipe
 
-class RecipeAdapter(private val data: List<Recipe>) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
+class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
+
+    var recipes = mutableListOf<DBRecipe>()
+
+    fun setRecommendationList(recipes: List<DBRecipe>) {
+        this.recipes = recipes.toMutableList()
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -23,12 +31,12 @@ class RecipeAdapter(private val data: List<Recipe>) : RecyclerView.Adapter<Recip
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return recipes.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: Recipe = data[position]
-        holder.recipeImageview.setImageResource(item.image)
+        val item: DBRecipe = recipes[position]
+        Glide.with(holder.itemView.context).load(item.image).into(holder.recipeImageview)
         holder.recipeTitle.text = item.title
         holder.recipeTime.text = item.readyInMinutes + " min"
         holder.recipeStar.text = item.aggregateLikes
@@ -49,7 +57,7 @@ class RecipeAdapter(private val data: List<Recipe>) : RecyclerView.Adapter<Recip
 
         override fun onClick(v: View?) {
             val intent: Intent = Intent(context, RecipeActivity::class.java)
-            var recipeId:Int = data[adapterPosition].id
+            var recipeId:Int = recipes[adapterPosition].id
 
             intent.putExtra("recipeId", recipeId)
             context.startActivity(intent)
