@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
 
                 //calendar.timeInMillis = System.currentTimeMillis()
                 calendar.set(Calendar.HOUR_OF_DAY, 11) //fire alarm everyday at 12pm
-                calendar.set(Calendar.MINUTE, 40)
+                calendar.set(Calendar.MINUTE, 48)
                 calendar.set(Calendar.SECOND, 6)
                 // Starts the alarm manager
                 alarmManager.setRepeating(
