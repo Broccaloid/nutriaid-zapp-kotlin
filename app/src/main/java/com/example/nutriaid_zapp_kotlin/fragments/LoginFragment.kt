@@ -55,6 +55,60 @@ class LoginFragment : Fragment() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
                         val user = auth.currentUser
+
+                        //set alarm if user is valid
+                        val calendar = Calendar.getInstance()
+                        val calendarNow = Calendar.getInstance()
+                        calendar.timeInMillis = System.currentTimeMillis()
+
+                        // Setting the specific time for the alarm manager to trigger the intent
+                        calendar.set(Calendar.HOUR_OF_DAY, 20) //fire alarm everyday at 12pm
+                        calendar.set(Calendar.MINUTE, 48)
+                        calendar.set(Calendar.SECOND, 6)
+                        if(calendar.after(calendarNow)) { //so that the alarm doesnt fire instantly
+                            val REQUESTCODE = 1
+                            // Creating the pending intent to send to the BroadcastReceiver
+                            var alarmManager =
+                                context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                            val intent = Intent(context, AlarmReceiver::class.java)
+                            var pendingIntent = PendingIntent.getBroadcast(
+                                context,
+                                REQUESTCODE,
+                                intent,
+                                PendingIntent.FLAG_UPDATE_CURRENT
+                            )
+                            // Starts the alarm manager
+                            alarmManager.setRepeating(
+                                AlarmManager.RTC_WAKEUP,
+                                calendar.timeInMillis,
+                                60000,
+                                pendingIntent
+                            )
+                            Log.d("mytag", "alarm set")
+                        }
+                        else{
+                            calendar.add(Calendar.DAY_OF_MONTH, 1) //set alarm for tomorrow
+                            val REQUESTCODE = 1
+                            // Creating the pending intent to send to the BroadcastReceiver
+                            var alarmManager =
+                                context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                            val intent = Intent(context, AlarmReceiver::class.java)
+                            var pendingIntent = PendingIntent.getBroadcast(
+                                context,
+                                REQUESTCODE,
+                                intent,
+                                PendingIntent.FLAG_UPDATE_CURRENT
+                            )
+                            // Starts the alarm manager
+                            alarmManager.setRepeating(
+                                AlarmManager.RTC_WAKEUP,
+                                calendar.timeInMillis,
+                                AlarmManager.INTERVAL_DAY,
+                                pendingIntent
+                            )
+                            Log.d("mytag", "alarm set")
+                        }
+
                         updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
