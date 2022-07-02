@@ -1,4 +1,4 @@
-package com.example.nutriaid_zapp_kotlin.models.db_response
+package com.example.nutriaid_zapp_kotlin.models.dbResponse
 
 data class DBIngredient(
     //val listId: Long,

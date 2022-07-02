@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nutriaid_zapp_kotlin.MainActivity
 import com.example.nutriaid_zapp_kotlin.adapters.ShoppingListAdapter
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentShoppingBinding
-import com.example.nutriaid_zapp_kotlin.fragments.LoginFragment
-import com.example.nutriaid_zapp_kotlin.models.db_response.DBIngredient
+import com.example.nutriaid_zapp_kotlin.models.dbResponse.DBIngredient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
