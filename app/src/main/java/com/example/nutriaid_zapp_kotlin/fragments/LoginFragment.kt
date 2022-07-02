@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment
 import com.example.nutriaid_zapp_kotlin.MainActivity
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentLoginBinding
 import com.example.nutriaid_zapp_kotlin.models.algorithm.AlarmReceiver
+import com.example.nutriaid_zapp_kotlin.models.algorithm.Algorithm
+import com.example.nutriaid_zapp_kotlin.models.algorithm.UserSpecs
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -108,6 +110,12 @@ class LoginFragment : Fragment() {
                             )
                             Log.d("mytag", "alarm set")
                         }
+
+                        //TESTING
+                        val y = UserSpecs()
+                        val x = Algorithm(y)
+                        x.getRecipes(21, true)
+                        //TESTING
 
                         updateUI(user)
                     } else {
