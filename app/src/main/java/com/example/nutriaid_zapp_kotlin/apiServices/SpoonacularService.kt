@@ -1,5 +1,6 @@
 package com.example.nutriaid_zapp_kotlin.apiServices
 
+import com.example.nutriaid_zapp_kotlin.models.fullRecipe.ListFullRecipe
 import com.example.nutriaid_zapp_kotlin.models.fullRecipe.RecipeFullData
 import com.example.nutriaid_zapp_kotlin.models.shortRecipe.RecipeShortData
 import retrofit2.Call
@@ -15,11 +16,18 @@ interface SpoonacularService {
         @QueryMap searchParameters: Map<String, String>
     ): Call<RecipeShortData>
 
+    @GET("recipes/complexSearch")
+    fun getListFullRecipes(
+        @QueryMap searchParameters: Map<String, String>
+    ): Call<ListFullRecipe>
+
     @GET("recipes/{id}/information")
     fun getFullRecipeById(
         @Path("id") id: Int,
         @QueryMap searchParameters: Map<String, String>
     ) : Call<RecipeFullData>
+
+
 
     companion object {
         var service: SpoonacularService? = null
