@@ -31,7 +31,8 @@ class AlarmReceiver: BroadcastReceiver() {
                 if (task.isSuccessful) {
                     Log.d("mytag", "get userspecs")
                     val document = task.result
-                    if (document != null) {
+                    Log.d("mytag", "userSpecs: "+document.size())
+                    if (document.size() != 0) {
                         for (doc in document) {
                             val userSpecs = UserSpecs(
                                 diet = doc.data["diet"].toString(),
