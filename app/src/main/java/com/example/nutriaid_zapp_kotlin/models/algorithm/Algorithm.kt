@@ -113,10 +113,11 @@ class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
                             for (i in recipes) {
                                 val temp = hashMapOf<String, String>(
                                     "recipeId" to i.id.toString(),
-                                    "image" to i.image,
-                                    "title" to i.title,
+                                    "image" to i.image.toString(),
+                                    "title" to i.title.toString(),
                                     "email" to email.toString(),
-                                    "aggregateLikes" to i.aggregateLikes.toString()
+                                    "aggregateLikes" to i.aggregateLikes.toString(),
+                                    "readyInMinutes" to i.readyInMinutes.toString()
                                 )
                                 db.collection("recipes").add(temp)
                                     .addOnSuccessListener { recipesRef ->

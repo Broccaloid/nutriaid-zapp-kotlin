@@ -64,8 +64,8 @@ class LoginFragment : Fragment() {
                         calendar.timeInMillis = System.currentTimeMillis()
 
                         // Setting the specific time for the alarm manager to trigger the intent
-                        calendar.set(Calendar.HOUR_OF_DAY, 16) //fire alarm every week at 1am
-                        calendar.set(Calendar.MINUTE,37)
+                        calendar.set(Calendar.HOUR_OF_DAY, 17) //fire alarm every week at 1am
+                        calendar.set(Calendar.MINUTE,11)
                         calendar.set(Calendar.SECOND, 0)
                         if(calendar.after(calendarNow)) {
                             val REQUESTCODE = 1
