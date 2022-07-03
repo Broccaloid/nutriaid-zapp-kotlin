@@ -15,14 +15,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Username"
+            android:text="E-Mail"
             android:textSize="25sp"
             android:textColor="@color/black"/>
         <EditText
             android:id="@+id/username_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="username"
+            android:hint="E-Mail"
             android:textSize="20sp"/>
         <TextView
             android:layout_width="match_parent"

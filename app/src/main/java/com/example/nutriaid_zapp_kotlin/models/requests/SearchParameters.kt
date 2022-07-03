@@ -10,7 +10,7 @@ class SearchParameters(
     val query: String? = null,
     val intolerances: String? = null,
     val sort: String? = "random",
-    val addRecipeNutrition: Boolean = false,
+    var addRecipeNutrition: Boolean = false,
     val addRecipeInformation: Boolean = false,
     val minCarbs: String? = null,
     val minProtein: String? = null,
@@ -56,7 +56,7 @@ class SearchParameters(
     override fun getQuerySearchParameters() : Map<String, String>{
         val parameters = HashMap<String, String>()
         for (prop in SearchParameters::class.memberProperties) {
-            prop.get(this)?.let { parameters.put(prop.name, it as String) }
+            prop.get(this)?.let { parameters.put(prop.name, it.toString()) }
         }
         parameters["apiKey"] = "20191a90b51c46c3bb1ae5945c400586"
         return parameters

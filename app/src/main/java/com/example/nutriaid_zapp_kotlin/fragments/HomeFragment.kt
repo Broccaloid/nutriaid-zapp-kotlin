@@ -55,43 +55,8 @@ class HomeFragment : Fragment() {
         if (currentUser == null) {
             (activity as MainActivity).replaceFragment(LoginFragment())
         }
-        else{
-            //set alarm if user is valid
-            val calendar = Calendar.getInstance()
-            val calendar2 = Calendar.getInstance()
-            calendar.timeInMillis = System.currentTimeMillis()
-            if(!calendar.before(calendar2)) { //so that the alarm doesnt fire instantly
-
-
-                val REQUESTCODE = 1
-                // Creating the pending intent to send to the BroadcastReceiver
-                var alarmManager =
-                    context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                val intent = Intent(context, AlarmReceiver::class.java)
-                var pendingIntent = PendingIntent.getBroadcast(
-                    context,
-                    REQUESTCODE,
-                    intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT
-                )
-                // Setting the specific time for the alarm manager to trigger the intent
-
-                //calendar.timeInMillis = System.currentTimeMillis()
-                calendar.set(Calendar.HOUR_OF_DAY, 11) //fire alarm everyday at 12pm
-                calendar.set(Calendar.MINUTE, 48)
-                calendar.set(Calendar.SECOND, 6)
-                // Starts the alarm manager
-                alarmManager.setRepeating(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.timeInMillis,
-                    60000,
-                    pendingIntent
-                )
-                Log.d("mytag", "alarm set")
-            }
-        }
-
         showRecipeRecommendations()
+
 
         return binding.root
     }

@@ -47,10 +47,11 @@
 
     <string-array name="diet_extra">
         <item>None</item>
-        <item>high-protein</item>
-        <item>how-calorie</item>
-        <item>high-calorie</item>
-        <item>high-carb</item>
-        <item>low-fat</item>
+        <item>High-protein</item>
+        <item>Low-calorie</item>
+        <item>High-calorie</item>
+        <item>High-carb</item>
+        <item>Low-fat</item>
     </string-array>
+
 </resources>

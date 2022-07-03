@@ -30,7 +30,7 @@ class HomeFragmentViewModel : ViewModel() {
                         try {
                             list.add(
                                 DBRecipe(
-                                    id = item.data["recipeId"] as Int? ?: 1,
+                                    id = item.data["recipeId"]?.toString()?.toInt() ?: 1,
                                     title = item.data["title"] as String? ?: "Default",
                                     image = item.data["image"] as String?
                                         ?: "https://spoonacular.com/recipeImages/637902-312x231.jpg",
