@@ -44,4 +44,13 @@
         <item>Pescetarian</item>
         <item>Paleo</item>
     </string-array>
+
+    <string-array name="diet_extra">
+        <item>None</item>
+        <item>high-protein</item>
+        <item>how-calorie</item>
+        <item>high-calorie</item>
+        <item>high-carb</item>
+        <item>low-fat</item>
+    </string-array>
 </resources>

@@ -104,18 +104,17 @@ class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
         Log.d("mytag", "getRecipes() called")
         //firstRun: For when an new User signed up -> no prior recipe data
         number = num.toString()
-        for (i in userSpecs.dietExtras) {
-            if (i == "high-protein")
+            if (userSpecs.dietExtras == "high-protein")
                 minProtein = "30"
-            if (i == "low-calorie")
+            if (userSpecs.dietExtras == "low-calorie")
                 maxCalories = "500"
-            if (i == "high-calorie")
+            if (userSpecs.dietExtras == "high-calorie")
                 minCalories = "700"
-            if (i == "high-carb")
+            if (userSpecs.dietExtras == "high-carb")
                 minCarbs = "100"
-            if (i == "low-fat")
+            if (userSpecs.dietExtras == "low-fat")
                 maxFat = "15"
-        }
+
         Log.d("mytag", "minProtein: "+minProtein)
         //authentification
         val auth: FirebaseAuth = Firebase.auth
@@ -434,16 +433,30 @@ class Algorithm(private val userSpecs: UserSpecs) : IAlgorithm {
 
             //get recipes from spoonacular and write them to firebase
             var api: ApiRepository = ApiRepository(SpoonacularService.getInstance())
-            var search = SearchParameters(
-                number = number,
-                diet = userSpecs.diet,
-                intolerances = userSpecs.intolerances,
-                minCarbs = minCarbs,
-                minProtein = minProtein,
-                minCalories = minCalories,
-                maxFat = maxFat,
-                maxCalories = maxCalories
-            )
+            lateinit var search : SearchParameters
+            if(userSpecs.diet != "none"){
+                search = SearchParameters(
+                    number = number,
+                    diet = userSpecs.diet,
+                    intolerances = userSpecs.intolerances,
+                    minCarbs = minCarbs,
+                    minProtein = minProtein,
+                    minCalories = minCalories,
+                    maxFat = maxFat,
+                    maxCalories = maxCalories
+                )
+            } else {
+                search = SearchParameters(
+                    number = number,
+                    intolerances = userSpecs.intolerances,
+                    minCarbs = minCarbs,
+                    minProtein = minProtein,
+                    minCalories = minCalories,
+                    maxFat = maxFat,
+                    maxCalories = maxCalories
+                )
+            }
+
             var response = api.getListShortRecipes(search)
 
             Log.d("mytag", "getListShortRecipes called")
