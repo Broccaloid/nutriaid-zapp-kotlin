@@ -3,6 +3,7 @@ package com.example.nutriaid_zapp_kotlin
 import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
@@ -147,7 +148,7 @@ class RecipeActivity : AppCompatActivity() {
         recipeLikes.text = "${recipe.aggregateLikes} likes"
         recipeServings.text = "${recipe.servings} servings"
         recipeIngredients.text = ingredients
-        recipeInstructions.text = recipe.instructions
+        recipeInstructions.text = Html.fromHtml(recipe.instructions)
     }
 
     private fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
