@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment
 import com.example.nutriaid_zapp_kotlin.MainActivity
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentLoginBinding
 import com.example.nutriaid_zapp_kotlin.models.algorithm.AlarmReceiver
+import com.example.nutriaid_zapp_kotlin.models.algorithm.Algorithm
+import com.example.nutriaid_zapp_kotlin.models.algorithm.UserSpecs
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -55,6 +57,66 @@ class LoginFragment : Fragment() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
                         val user = auth.currentUser
+
+                        //set alarm if user is valid
+                        val calendar = Calendar.getInstance()
+                        val calendarNow = Calendar.getInstance()
+                        calendar.timeInMillis = System.currentTimeMillis()
+
+                        // Setting the specific time for the alarm manager to trigger the intent
+                        calendar.set(Calendar.HOUR_OF_DAY, 1) //fire alarm everyday at 1am
+                        calendar.set(Calendar.MINUTE, 0)
+                        calendar.set(Calendar.SECOND, 0)
+                        if(calendar.after(calendarNow)) { //so that the alarm doesnt fire instantly
+                            val REQUESTCODE = 1
+                            // Creating the pending intent to send to the BroadcastReceiver
+                            var alarmManager =
+                                context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                            val intent = Intent(context, AlarmReceiver::class.java)
+                            var pendingIntent = PendingIntent.getBroadcast(
+                                context,
+                                REQUESTCODE,
+                                intent,
+                                PendingIntent.FLAG_UPDATE_CURRENT
+                            )
+                            // Starts the alarm manager
+                            alarmManager.setRepeating(
+                                AlarmManager.RTC_WAKEUP,
+                                calendar.timeInMillis,
+                                AlarmManager.INTERVAL_DAY * 7,
+                                pendingIntent
+                            )
+                            Log.d("mytag", "alarm set")
+                        }
+                        else{
+                            calendar.add(Calendar.DAY_OF_MONTH, 7) //set alarm for next week
+                            val REQUESTCODE = 1
+                            // Creating the pending intent to send to the BroadcastReceiver
+                            var alarmManager =
+                                context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                            val intent = Intent(context, AlarmReceiver::class.java)
+                            var pendingIntent = PendingIntent.getBroadcast(
+                                context,
+                                REQUESTCODE,
+                                intent,
+                                PendingIntent.FLAG_UPDATE_CURRENT
+                            )
+                            // Starts the alarm manager
+                            alarmManager.setRepeating(
+                                AlarmManager.RTC_WAKEUP,
+                                calendar.timeInMillis,
+                                AlarmManager.INTERVAL_DAY * 7, //fire alarm once a week
+                                pendingIntent
+                            )
+                            Log.d("mytag", "alarm set")
+                        }
+
+                        //TESTING
+                        val y = UserSpecs()
+                        val x = Algorithm(y)
+                        x.getRecipes(21, true)
+                        //TESTING
+
                         updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
