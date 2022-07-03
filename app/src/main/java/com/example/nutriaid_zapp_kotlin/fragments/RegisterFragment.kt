@@ -1,7 +1,11 @@
 package com.example.nutriaid_zapp_kotlin.fragments
 
 import android.app.Activity
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,10 +15,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.nutriaid_zapp_kotlin.MainActivity
 import com.example.nutriaid_zapp_kotlin.databinding.FragmentRegisterBinding
+import com.example.nutriaid_zapp_kotlin.models.algorithm.AlarmReceiver
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 
 class RegisterFragment: Fragment() {
@@ -37,7 +43,61 @@ class RegisterFragment: Fragment() {
 
         fun updateUI(user: FirebaseUser?){
             if(user != null){
-                (activity as MainActivity).replaceFragment(HomeFragment())
+
+                //set alarm if user is valid
+                val calendar = Calendar.getInstance()
+                val calendarNow = Calendar.getInstance()
+                calendar.timeInMillis = System.currentTimeMillis()
+
+                // Setting the specific time for the alarm manager to trigger the intent
+                calendar.set(Calendar.HOUR_OF_DAY, 19) //fire alarm everyday at 1am
+                calendar.set(Calendar.MINUTE, 46)
+                calendar.set(Calendar.SECOND, 0)
+                if(calendar.after(calendarNow)) {
+                    val REQUESTCODE = 1
+                    // Creating the pending intent to send to the BroadcastReceiver
+                    var alarmManager =
+                        context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    val intent = Intent(context, AlarmReceiver::class.java)
+                    var pendingIntent = PendingIntent.getBroadcast(
+                        context,
+                        REQUESTCODE,
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                    )
+                    // Starts the alarm manager
+                    alarmManager.setRepeating(
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.timeInMillis,
+                        AlarmManager.INTERVAL_DAY * 7,
+                        pendingIntent
+                    )
+                    Log.d("mytag", "alarm set for new registration")
+                }
+                else{
+                    calendar.add(Calendar.DAY_OF_MONTH, 7) //set alarm for next week, so that the alarm doesnt fire instantly
+                    val REQUESTCODE = 1
+                    // Creating the pending intent to send to the BroadcastReceiver
+                    var alarmManager =
+                        context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    val intent = Intent(context, AlarmReceiver::class.java)
+                    var pendingIntent = PendingIntent.getBroadcast(
+                        context,
+                        REQUESTCODE,
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                    )
+                    // Starts the alarm manager
+                    alarmManager.setRepeating(
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.timeInMillis,
+                        AlarmManager.INTERVAL_DAY * 7, //fire alarm once a week
+                        pendingIntent
+                    )
+                    Log.d("mytag", "alarm set after new registration")
+                }
+
+                (activity as MainActivity).replaceFragment(ProfileFragment()) //when account was set up, switch to configuration
             }
         }
 
@@ -49,6 +109,9 @@ class RegisterFragment: Fragment() {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success")
                             val user = auth.currentUser
+
+
+
                             updateUI(user)
                         } else {
                             // If sign in fails, display a message to the user.

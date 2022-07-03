@@ -64,10 +64,10 @@ class LoginFragment : Fragment() {
                         calendar.timeInMillis = System.currentTimeMillis()
 
                         // Setting the specific time for the alarm manager to trigger the intent
-                        calendar.set(Calendar.HOUR_OF_DAY, 1) //fire alarm everyday at 1am
-                        calendar.set(Calendar.MINUTE, 0)
+                        calendar.set(Calendar.HOUR_OF_DAY, 14) //fire alarm every week at 1am
+                        calendar.set(Calendar.MINUTE,12)
                         calendar.set(Calendar.SECOND, 0)
-                        if(calendar.after(calendarNow)) { //so that the alarm doesnt fire instantly
+                        if(calendar.after(calendarNow)) {
                             val REQUESTCODE = 1
                             // Creating the pending intent to send to the BroadcastReceiver
                             var alarmManager =
@@ -86,10 +86,10 @@ class LoginFragment : Fragment() {
                                 AlarmManager.INTERVAL_DAY * 7,
                                 pendingIntent
                             )
-                            Log.d("mytag", "alarm set")
+                            Log.d("mytag", "alarm set after successful login")
                         }
                         else{
-                            calendar.add(Calendar.DAY_OF_MONTH, 7) //set alarm for next week
+                            calendar.add(Calendar.DAY_OF_MONTH, 7) //set alarm for next week, so that the alarm doesnt fire instantly
                             val REQUESTCODE = 1
                             // Creating the pending intent to send to the BroadcastReceiver
                             var alarmManager =
@@ -108,14 +108,14 @@ class LoginFragment : Fragment() {
                                 AlarmManager.INTERVAL_DAY * 7, //fire alarm once a week
                                 pendingIntent
                             )
-                            Log.d("mytag", "alarm set")
+                            Log.d("mytag", "alarm set after successful login")
                         }
 
-                        //TESTING
+                        /*//TESTING
                         val y = UserSpecs()
                         val x = Algorithm(y)
                         x.getRecipes(21, true)
-                        //TESTING
+                        //TESTING*/
 
                         updateUI(user)
                     } else {
